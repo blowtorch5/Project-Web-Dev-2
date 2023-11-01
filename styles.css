@@ -1,0 +1,424 @@
+/******w*************
+    
+    Project 3 Stylesheet
+    Name: Patrick Philippot
+    Date: 12/04/2022
+    Description: Styles for Project 2
+
+********************/
+
+@import url(https://fonts.googleapis.com/css2?family=Roboto);
+
+body{
+    background-color: lightgray;
+    padding: 0px;
+    margin: 0px;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover, a:focus{
+    color: #1F9A2E;
+}
+
+h1, h2, h3, label{
+    color: #0D6CA3;
+    font-style: italic;
+    font-weight: bolder;
+}
+
+h1{
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+h2{
+    font-size: 24px;
+}
+
+textarea{
+    resize: none;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+img{
+    border: 2px black solid;
+    border-radius: 10px;
+    display: flex;
+    margin: auto;
+}
+
+    body > div{
+        width: 90%;
+        margin: 20px auto;
+        border: 2px black solid;
+        border-radius: 10px;
+        background-color: white;
+        font-family: 'Roboto';
+    }
+
+    main, header, #createpost{
+        margin: 20px auto;
+        width: 95%;
+    }
+
+    header nav{
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        #headnavlist, div > ul{
+            display: flex;
+            flex: 1;
+            width: 100%;
+            justify-content: space-between;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #headnavlist li, div > ul li{
+            display: flex;
+            width: 49%;
+            justify-content: space-between;
+        }
+
+        #postsearch{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        div > ul li{
+            margin: auto;
+        }
+
+            #headnavlist li a, #continue a, div > ul li a{
+                display: flex;
+                width: 100%;
+                height: 50px;
+                align-items: center;
+                justify-content: center;
+                color: black;
+                font-size: 24px;
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+
+                #headnavlist li a:hover, #headnavlist li a:focus, #continue a:hover, #continue a:focus, div > ul li a:hover, div > ul li a:focus{
+                    color: white;
+                    background-color: #1F9A2E;
+                }
+
+    #indexmain h1{
+        flex-basis: 100%;
+        text-align: center;
+    }
+
+        div{
+            margin: 10px auto;
+            border: 2px black solid;
+            border-radius: 10px;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        #postdiv, #editpost{
+            width: 95%;
+        }
+
+        #contactus{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            #contactus li{
+                width: auto;
+                margin: auto;
+            }
+
+        #subjectmain{
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #contactmain{
+            flex-direction: column;
+            align-items: center;
+        }
+
+            form:not(){
+            display: flex;
+            flex-wrap: wrap;
+            width: 90%;
+            padding: 5px 10px;
+            border: 2px black solid;
+            border-radius: 10px;
+            flex-direction: column;
+            margin: 10px auto;
+            }
+
+            #postForm button, #deleteForm button{
+                margin: auto;
+            }
+
+                #buttons{
+                    display: flex;
+                    width: 75%;
+                    margin: 10px auto;
+                    justify-content: space-evenly;
+                }
+
+                    button{
+                        display: flex;
+                        width: 25%;
+                        height: 50px;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: white;
+                        color: black;
+                        font-size: 24px;
+                        border: 1px black solid;
+                        border-radius: 5px;
+                    }
+
+                    #create{
+                        margin: auto;
+                    }
+
+                    button:hover, button:focus{
+                        color: white;
+                        background-color: #1F9A2E;
+                    }
+
+            #editActions{
+                flex-direction: row;
+            }
+
+            #editActions li{
+                flex: 1;
+            }
+
+            #editActions button{
+                width: 100%;
+            }
+
+            #deleteButton:hover, #deleteButton:focus{
+                background-color: red;
+            }
+            
+            div div ul, form ul{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 0px;
+                list-style: none;
+            }
+
+                    form ul li{
+                        margin: 10px 5px;
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    #content{
+                        height: 200px;
+                        width: 100%;
+                        text-align: left;
+                    }
+
+                    form ul li p, #error_message{
+                        color: red;
+                        margin: 0px;
+                        display: none;
+                    }
+
+                        form ul li input, textarea{
+                            display: inline-block;
+                            border: 1px black solid;
+                            border-radius: 5px;
+                            padding: 5px;
+                        } 
+
+                        form ul li input{
+                            width: 250px;
+                        }
+
+            #contactmain div div h2{
+                margin-bottom: 0px;
+            }
+
+            #delete{
+                border: none;
+                margin: 0%;
+                padding: 0%;
+            }
+
+    footer{
+        width: 250px;
+        margin: 10px auto;
+    }
+
+        footer nav ul{
+            display: flex;
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+            footer nav ul li{
+                display: flex;
+                flex: 2;
+                justify-content: center;
+                align-items: center;
+                font-size: 12px;
+            }
+
+            footer nav ul li{
+                border-right: 1px black solid;
+            }
+
+            footer nav ul li:last-child{
+                border: none;
+            }
+
+@media(max-width: 1100px){
+
+    *{
+        margin: auto;
+        padding: 0px;
+        text-align: center;
+    }
+
+    img{
+        display: inline;
+        margin: 10px auto;
+        margin: 10px;
+        text-align: left;
+        width: 60%;
+    }
+
+    h2{
+        font-size: 32px;
+    }
+
+    body > div{
+        width: 90vw;
+    }
+
+    body div div{
+        border: none;
+    }
+
+    header{
+        display: inline;
+    }
+
+    input{
+        width: unset;
+    }
+
+    header nav{
+        display: inline-block;
+        margin: 10px auto;
+        width: 80vw;
+    }
+
+    #headnavlist{
+        display: inline;
+    }
+
+    #headnavlist li{
+        width: unset;
+        height: unset;
+        margin: unset;
+    }
+
+    #headnavlist li a{
+        text-align: left;
+        justify-content: unset;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    main{
+        display: inline-block;
+        width: 80vw;
+    }
+
+    #contactmain, #buttons{
+        width: 80vw;
+        padding: 0px;
+        border: none;
+        display: inline-block;
+    }
+
+    #contactmain ul{
+        display: inline-block;
+    }
+
+    #form div ul{
+        display: inline-block;
+    }
+
+    #buttons{
+        width: 80vw;
+    }
+
+    #buttons button{
+        width: 100%;
+        margin: 10px auto;
+    }
+
+    footer{
+        width: 80vw;
+    }
+
+    footer nav{
+        width: 100%;
+    }
+
+    footer nav ul{
+        display: inline-block;
+        width: 100%;
+    }
+
+    footer nav ul li{
+        width: 100%;
+        height: 50px;
+    }
+
+    footer nav ul li:not(footer nav ul li:last-child){
+        border: none;
+    }
+
+    footer nav ul li a{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        color: black;
+        font-size: 24px;
+        border: 1px black solid;
+        border-radius: 5px;
+        text-align: left;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    footer nav ul li a:hover, footer nav ul li a:focus{
+        color: white;
+        background-color: #1F9A2E;
+    }
+
+    textarea{
+        columns: auto;
+    }
+}
