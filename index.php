@@ -5,7 +5,7 @@
     CMS Philippot Farms LTD Project
     Name: Patrick Philippot
     Date: 4/18/2023
-    Description: Index to Philippot Farms LTD website.
+    Description: Index to Philippot Farms LTD website. Now with Git.
 
 *********************/
 
