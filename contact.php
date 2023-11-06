@@ -20,9 +20,6 @@ session_start();
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <?php if(!isset($_SESSION['authenticated'])): ?>
-    <a href=authenticate.php?redirect=index.php>sign in</a>
-    <?php endif ?>
     <div id="contactform">
         <header id="contactheader">
             <h1>Contact Us</h1>
@@ -55,6 +52,9 @@ session_start();
                 <ul>
                     <li><a href="index.php">Home Page</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
+                    <?php if(!isset($_SESSION['authenticated'])): ?>
+                        <li><a href="authenticate.php?redirect=index.php">Sign In</a></li>
+                    <?php endif ?>
                 </ul>
             </nav>
         </footer>        

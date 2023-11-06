@@ -33,9 +33,6 @@ $post = $statement->fetch();
     <title>My Blog Post!</title>
 </head>
 <body>
-    <?php if(!isset($_SESSION['authenticated'])): ?>
-    <a href=authenticate.php?redirect=index.php>sign in</a>
-    <?php endif ?>
     <div>
         <header>
         <h1>Philippot Farms LTD</h1>
@@ -58,7 +55,7 @@ $post = $statement->fetch();
             <p><?= $post['footer'] ?></p>
             <?php endif ?>
             <?php if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-            <p><a href=edit.php?id=<?=$post['id']?>>Edit Post</a></p>
+            <p><a href="edit.php?id=<?=$post['id']?>">Edit Post</a></p>
             <?php endif ?>
         </div>
         <footer id="indexfooter">
@@ -66,6 +63,9 @@ $post = $statement->fetch();
                 <ul>
                     <li><a href="index.php">Home Page</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
+                    <?php if(!isset($_SESSION['authenticated'])): ?>
+                        <li><a href="authenticate.php?redirect=index.php">Sign In</a></li>
+                    <?php endif ?>
                 </ul>
             </nav>
         </footer>

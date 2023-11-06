@@ -44,9 +44,6 @@ else
     <title>Posts</title>
 </head>
 <body>
-    <?php if(!isset($_SESSION['authenticated'])): ?>
-    <a href=authenticate.php?redirect=index.php>sign in</a>
-    <?php endif ?>
     <div>
     <header id="contactheader">
             <h1>Posts</h1>
@@ -94,6 +91,9 @@ else
                 <ul>
                     <li><a href="index.php">Home Page</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
+                    <?php if(!isset($_SESSION['authenticated'])): ?>
+                        <li><a href="authenticate.php?redirect=index.php">Sign In</a></li>
+                    <?php endif ?>
                 </ul>
             </nav>
         </footer>
