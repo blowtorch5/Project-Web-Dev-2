@@ -262,32 +262,38 @@ img{
             }
 
     footer{
-        width: 15%;
+        display: flex;
+        justify-content: center;
         margin: 10px auto;
     }
 
-        footer nav ul{
-            display: flex;
-            margin: 0px;
-            padding: 0px;
-            list-style: none;
+        footer nav{
+            width: 20%;
         }
 
-            footer nav ul li{
+            footer nav ul{
                 display: flex;
-                flex: 2;
-                justify-content: center;
-                align-items: center;
-                font-size: 12px;
+                margin: 0px;
+                padding: 0px;
+                list-style: none;
             }
 
-            footer nav ul li{
-                border-right: 1px black solid;
-            }
+                footer nav ul li{
+                    display: flex;
+                    flex: 2;
+                    padding: 0px 10px;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 12px;
+                }
 
-            footer nav ul li:last-child{
-                border: none;
-            }
+                footer nav ul li{
+                    border-right: 1px black solid;
+                }
+
+                footer nav ul li:last-child{
+                    border: none;
+                }
 
 @media(max-width: 1100px){
 
