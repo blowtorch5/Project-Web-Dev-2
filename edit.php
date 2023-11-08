@@ -222,6 +222,7 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
             <nav>
                 <ul>
                     <li><a href="index.php">Home Page</a></li>
+                    <li><a href="posts.php">Posts</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
                 </ul>
             </nav>

@@ -62,6 +62,7 @@ $post = $statement->fetch();
             <nav>
                 <ul>
                     <li><a href="index.php">Home Page</a></li>
+                    <li><a href="posts.php">Posts</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
                     <?php if(!isset($_SESSION['authenticated'])): ?>
                         <li><a href="authenticate.php?redirect=index.php">Sign In</a></li>
