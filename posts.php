@@ -56,7 +56,7 @@ else
             </nav>
         </header>
         <main>
-            <div>
+            <div id="post-options">
                 <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
                 <h3><a href="edit.php">Create New Post</a></h3>
                 <?php endif ?>
@@ -67,21 +67,23 @@ else
                 </form>
             </div>
             <?php if(count($posts) != 0): ?>
-            <div>
+            <div id="post-list">
             <?php foreach($posts as $post): ?>
-                <h2><a href=post.php?id=<?=$post['id'] ?>><?= $post['title'] ?></a></h2>
-                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-                <a href=edit.php?id=<?=$post['id']?>>Edit Post</a>
-                <?php endif ?>
-                <p><?=date("M d, Y ", strtotime($post['time_stamp']))?></p>
-                <?php if (isset($post['header'])): ?>
-                <p><?= $post['header'] ?></p>
-                <?php endif ?>
-                <p><?= substr($post['body'], 0, 200) ?></p>
-                <?php if (isset($post['footer'])): ?>
-                <p><?= $post['footer'] ?></p>
-                <?php endif ?>
-                <p><a href=post.php?id=<?=$post['id']?>>Read Full Post</a></p>
+                <div class="post">
+                    <h2><a href=post.php?id=<?=$post['id'] ?>><?= $post['title'] ?></a></h2>
+                    <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                    <a href=edit.php?id=<?=$post['id']?>>Edit Post</a>
+                    <?php endif ?>
+                    <p><?=date("M d, Y ", strtotime($post['time_stamp']))?></p>
+                    <?php if (isset($post['header'])): ?>
+                    <p><?= $post['header'] ?></p>
+                    <?php endif ?>
+                    <p><?= substr($post['body'], 0, 200) ?></p>
+                    <?php if (isset($post['footer'])): ?>
+                    <p><?= $post['footer'] ?></p>
+                    <?php endif ?>
+                    <p><a href=post.php?id=<?=$post['id']?>>Read Full Post</a></p>
+                </div>
             <?php endforeach ?>
             </div>
             <?php endif ?>

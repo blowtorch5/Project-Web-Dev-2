@@ -120,7 +120,7 @@ img{
         text-align: center;
     }
 
-        div{
+        div:not(.post){
             margin: 10px auto;
             border: 2px black solid;
             border-radius: 10px;
@@ -359,10 +359,27 @@ img{
         width: 80vw;
     }
 
+    #post-options{
+        border: 2px black solid;
+    }
+
+    .post{
+        border: 2px black solid;
+        border-radius: 10px;
+        padding: 25px;
+        margin: 10px 0px;
+    }
+
+    #post-list{
+        border: none;
+        padding: 0px;
+    }
+
     #contactmain, #buttons{
         width: 80vw;
         padding: 0px;
-        border: none;
+        border: 2px black solid;
+        border-radius: 10px;
         display: inline-block;
     }
 
@@ -399,6 +416,7 @@ img{
     footer nav ul li{
         width: 100%;
         height: 50px;
+        padding: 0px;
     }
 
     footer nav ul li:not(footer nav ul li:last-child){

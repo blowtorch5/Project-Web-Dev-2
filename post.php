@@ -44,7 +44,7 @@ $post = $statement->fetch();
             </ul>
         </nav>
         </header>
-        <div id="postdiv">
+        <div id="postdiv" class="post">
             <h2><?= $post['title'] ?></h2>
             <p><?= date("M d, Y", strtotime($post['time_stamp'])) ?></p>
             <?php if (isset($post['header'])): ?>
