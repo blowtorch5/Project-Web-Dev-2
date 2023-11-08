@@ -387,6 +387,10 @@ img{
         display: inline-block;
     }
 
+    #contactus{
+        border: none;
+    }
+
     #form div ul{
         display: inline-block;
     }
