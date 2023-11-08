@@ -268,7 +268,7 @@ img{
     }
 
         footer nav{
-            width: 20%;
+            width: 300px;
         }
 
             footer nav ul{
@@ -280,7 +280,6 @@ img{
 
                 footer nav ul li{
                     display: flex;
-                    flex: 2;
                     padding: 0px 10px;
                     justify-content: center;
                     align-items: center;
