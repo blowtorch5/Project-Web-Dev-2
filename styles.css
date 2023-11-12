@@ -273,8 +273,9 @@ img{
 
             footer nav ul{
                 display: flex;
-                margin: 0px;
+                margin: auto;
                 padding: 0px;
+                width: fit-content;
                 list-style: none;
             }
 
