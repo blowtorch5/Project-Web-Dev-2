@@ -32,7 +32,7 @@
     foreach( $users as $user ){
       if($user["username"] == $_SERVER["PHP_AUTH_USER"]){
         if($user["password"] == $_SERVER["PHP_AUTH_PW"]){
-          $_SESSION['level'] = $user['level'];
+          $_SESSION['user'] = $user;
           $_SESSION["authenticated"] = true;
         }
       }
