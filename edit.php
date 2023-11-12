@@ -8,7 +8,6 @@
 
 ****************/
 
-require('connect.php');
 require('authenticate.php');
 
 $edit_post = false;

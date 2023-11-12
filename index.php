@@ -70,7 +70,7 @@ $posts = $statement->fetchAll();
                 <?php foreach($posts as $post): ?>
                     <div class="post">
                         <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
-                        <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                        <?php if(isset($_SESSION['level']) && $_SESSION['level'] == 'admin'): ?>
                         <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
                         <?php endif ?>
                         <p><?=date("M d, Y", strtotime($post['time_stamp']))?></p>
