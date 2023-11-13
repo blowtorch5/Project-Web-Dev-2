@@ -54,7 +54,7 @@ $post = $statement->fetch();
             <?php if (isset($post['footer'])): ?>
             <p><?= $post['footer'] ?></p>
             <?php endif ?>
-            <?php if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+            <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
             <p><a href="edit.php?id=<?=$post['id']?>">Edit Post</a></p>
             <?php endif ?>
         </div>

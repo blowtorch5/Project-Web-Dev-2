@@ -8,7 +8,8 @@
 
 ****************/
 
-require('authenticate.php');
+require('connect.php');
+session_start();
 
 $edit_post = false;
 
@@ -150,82 +151,86 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
     <title>Edit this Post!</title>
 </head>
 <body>
-    <div>
-        <header>
-            <h1>Philippot Farms LTD</h1>
-            <nav>
-                <ul id="headnavlist">
-                    <li><a href="index.php">Home Page</a></li>
-                    <li id='postsearch'><a href="posts.php">Posts</a></li>
-                    <li><a href="contact.php">Contact Us</a></li>
-                </ul>
-            </nav>
-        </header>
-    <?php if($edit_post): ?>
-        <h1>Post "<?= $post['title'] ?>"</h1>
-        <div id="editpost">
-            <form method="post" id="postForm">
-                <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                <ul>
-                    <li>
-                        <label for="title">Title</label>
-                        <input id="title" name="title" value="<?= $post['title'] ?>">
-                    </li>
-                    <li>
-                        <label for="header">Introduction</label>
-                        <textarea id="header" name="header" value=""><?= $post['header']?></textarea>
-                    </li>
-                    <li>
-                        <label for="body">Body</label>
-                        <textarea id="body" name="body" value=""><?= $post['body'] ?></textarea>
-                    </li>
-                    <li>
-                        <label for="footer">Conclusion</label>
-                        <textarea id="footer" name="footer" value=""><?= $post['footer']?></textarea>
-                    </li>
-                </ul>
-                <button type="submit">Update</button> 
-            </form>
-            <form action="delete.php" id="deleteForm">
-                <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                <button type="submit" id="deleteButton">Delete</button>
-            </form>
-        </div>
-        <?php else: ?>
-            <h1>New Post</h1>
-            <div id="createpost">
-                <form method="post">
+    <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+        <div>
+            <header>
+                <h1>Philippot Farms LTD</h1>
+                <nav>
+                    <ul id="headnavlist">
+                        <li><a href="index.php">Home Page</a></li>
+                        <li id='postsearch'><a href="posts.php">Posts</a></li>
+                        <li><a href="contact.php">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </header>
+        <?php if ($edit_post): ?>
+            <h1>Post "<?= $post['title'] ?>"</h1>
+            <div id="editpost">
+                <form method="post" id="postForm">
+                    <input type="hidden" name="id" value="<?= $post['id'] ?>">
                     <ul>
                         <li>
                             <label for="title">Title</label>
-                            <input id="title" name="title" value="">
+                            <input id="title" name="title" value="<?= $post['title'] ?>">
                         </li>
                         <li>
                             <label for="header">Introduction</label>
-                            <textarea id="header" name="header" value=""></textarea>
+                            <textarea id="header" name="header" value=""><?= $post['header']?></textarea>
                         </li>
                         <li>
                             <label for="body">Body</label>
-                            <textarea id="body" name="body" value=""></textarea>
+                            <textarea id="body" name="body" value=""><?= $post['body'] ?></textarea>
                         </li>
                         <li>
                             <label for="footer">Conclusion</label>
-                            <textarea id="footer" name="footer" value=""></textarea>
+                            <textarea id="footer" name="footer" value=""><?= $post['footer']?></textarea>
                         </li>
-                        <button type="submit" id="create">Create</button>
                     </ul>
+                    <button type="submit">Update</button> 
+                </form>
+                <form action="delete.php" id="deleteForm">
+                    <input type="hidden" name="id" value="<?= $post['id'] ?>">
+                    <button type="submit" id="deleteButton">Delete</button>
                 </form>
             </div>
-        <?php endif ?>
-        <footer id="indexfooter">
-            <nav>
-                <ul>
-                    <li><a href="index.php">Home Page</a></li>
-                    <li><a href="posts.php">Posts</a></li>
-                    <li><a href="contact.php">Contact Us</a></li>
-                </ul>
-            </nav>
-        </footer>
-    </div>
+            <?php else: ?>
+                <h1>New Post</h1>
+                <div id="createpost">
+                    <form method="post">
+                        <ul>
+                            <li>
+                                <label for="title">Title</label>
+                                <input id="title" name="title" value="">
+                            </li>
+                            <li>
+                                <label for="header">Introduction</label>
+                                <textarea id="header" name="header" value=""></textarea>
+                            </li>
+                            <li>
+                                <label for="body">Body</label>
+                                <textarea id="body" name="body" value=""></textarea>
+                            </li>
+                            <li>
+                                <label for="footer">Conclusion</label>
+                                <textarea id="footer" name="footer" value=""></textarea>
+                            </li>
+                            <button type="submit" id="create">Create</button>
+                        </ul>
+                    </form>
+                </div>
+            <?php endif ?>
+            <footer id="indexfooter">
+                <nav>
+                    <ul>
+                        <li><a href="index.php">Home Page</a></li>
+                        <li><a href="posts.php">Posts</a></li>
+                        <li><a href="contact.php">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </footer>
+        </div>
+    <?php else: ?>
+        <p class="error">Please log in to admin level account.</p>
+    <?php endif ?>
 </body>
 </html>

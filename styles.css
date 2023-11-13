@@ -19,6 +19,10 @@ a{
     text-decoration: none;
 }
 
+.error{
+    color: red;
+}
+
 a:hover, a:focus{
     color: #1F9A2E;
 }
