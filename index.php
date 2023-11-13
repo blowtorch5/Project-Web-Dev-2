@@ -31,7 +31,7 @@ $posts = $statement->fetchAll();
 <body>
     <div>
         <?php if (isset($_SESSION["user"]["username"])): ?>
-            <p><?=$_SESSION["user"]["username"]?></p>
+            <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
         <?php endif ?>
         <?php if (isset($_SESSION["authenticated"]) && !$_SESSION['authenticated']): ?>
             <p class="error">Incorrect login</p>

@@ -15,6 +15,8 @@
 
   $users = $statement->fetchAll();
 
+  $logged = false;
+
   session_start();
 
   foreach( $users as $user ){
@@ -22,12 +24,13 @@
       if ($user["password"] == $_GET["password"]){
         $_SESSION['user'] = $user;
         $_SESSION["authenticated"] = true;
+        $logged = true;
         header('Location: index.php');
       }
     }
   }
 
-  if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']){
+  if (!$logged){
     $_SESSION['authenticated'] = false;
     header('Location: index.php');
   }
