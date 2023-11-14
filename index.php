@@ -36,7 +36,7 @@ $posts = $statement->fetchAll();
         <?php if (isset($_SESSION["authenticated"]) && !$_SESSION['authenticated']): ?>
             <p class="error">Incorrect login</p>
         <?php endif ?>
-        <form action="authenticate.php">
+        <form id="login" action="authenticate.php?redirect=index.php">
             <label for="username">Username:</label>
             <input id="username" name="username">
             <label for="password">Password:</label>
@@ -106,7 +106,7 @@ $posts = $statement->fetchAll();
                     <li><a href="posts.php">Posts</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
                     <?php if (!isset($_SESSION['authenticated'])): ?>
-                        <li><a href="authenticate.php?redirect=index.php">Sign In</a></li>
+                        <li><a href="#login">Sign In</a></li>
                     <?php endif ?>
                 </ul>
             </nav>

@@ -132,8 +132,7 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
             $statement->bindValue(':time_stamp', $time_stamp);
         }
     }
-
-    $failed = false;
+    
     $statement->execute();
     header("Location: index.php");
 

@@ -25,13 +25,15 @@
         $_SESSION['user'] = $user;
         $_SESSION["authenticated"] = true;
         $logged = true;
-        header('Location: index.php');
       }
     }
   }
 
   if (!$logged){
     $_SESSION['authenticated'] = false;
-    header('Location: index.php');
   }
+
+  $site = $_GET['redirect'];
+
+  header("Location: $site");
 ?>

@@ -34,6 +34,19 @@ $post = $statement->fetch();
 </head>
 <body>
     <div>
+        <?php if (isset($_SESSION["user"]["username"])): ?>
+            <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
+        <?php endif ?>
+        <?php if (isset($_SESSION["authenticated"]) && !$_SESSION['authenticated']): ?>
+            <p class="error">Incorrect login</p>
+        <?php endif ?>
+        <form id="login" action="authenticate.php?redirect=post.php">
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+            <label for="password">Password:</label>
+            <input id="password" name="password">
+            <button type="submit">Login</button>
+        </form>
         <header>
         <h1>Philippot Farms LTD</h1>
         <nav>
@@ -65,7 +78,7 @@ $post = $statement->fetch();
                     <li><a href="posts.php">Posts</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
                     <?php if(!isset($_SESSION['authenticated'])): ?>
-                        <li><a href="authenticate.php?redirect=index.php">Sign In</a></li>
+                        <li><a href="#login">Sign In</a></li>
                     <?php endif ?>
                 </ul>
             </nav>
