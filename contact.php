@@ -49,6 +49,16 @@ session_start();
             </nav>
         </header>
         <main id="contactmain">
+            <div id="post-options">
+            <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+            <h3><a href="edit.php">Create New Post</a></h3>
+            <?php endif ?>
+            <h2>Search for post</h2>
+            <form method="post" action="posts.php">
+                <label>Title of Post</label>
+                <input type="text" name="title" id="title">
+            </form>
+            </div>
            <div id="contactus">
                 <h2>You can contact us by the following</h2>
                 <ul> <!-- PLEASE DO NOT CONTACT ANY OF THESE, I PROMISE THESE WORK, THEY ARE MY PARENTS' ACTUAL CONTACT INFO -->

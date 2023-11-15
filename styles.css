@@ -132,7 +132,7 @@ img{
             box-sizing: border-box;
         }
 
-        #postdiv, #editpost{
+        #postdiv{
             width: 95%;
         }
 
@@ -362,10 +362,6 @@ img{
     main{
         display: inline-block;
         width: 80vw;
-    }
-
-    #post-options{
-        border: 2px black solid;
     }
 
     .post{

@@ -162,94 +162,96 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
                     </ul>
                 </nav>
             </header>
-        <div id="post-options">
-        <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-        <h3><a href="edit.php">Create New Post</a></h3>
-        <?php endif ?>
-        <h2>Search for post</h2>
-        <form method="post" action="posts.php">
-            <label>Title of Post</label>
-            <input type="text" name="title" id="title">
-        </form>
-        </div>
-        <?php if ($edit_post): ?>
-            <h1>Post "<?= $post['title'] ?>"</h1>
-            <div id="editpost">
-                <form method="post" id="postForm">
-                    <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                    <ul>
-                        <li>
-                            <label for="title">Title</label>
-                            <input id="title" name="title" value="<?= $post['title'] ?>">
-                        </li>
-                        <li>
-                            <label for="header">Introduction</label>
-                            <textarea id="header" name="header" value=""><?= $post['header']?></textarea>
-                        </li>
-                        <li>
-                            <label for="body">Body</label>
-                            <textarea id="body" name="body" value=""><?= $post['body'] ?></textarea>
-                        </li>
-                        <li>
-                            <label for="footer">Conclusion</label>
-                            <textarea id="footer" name="footer" value=""><?= $post['footer']?></textarea>
-                        </li>
-                    </ul>
-                    <button type="submit">Update</button> 
+            <main>
+                <div id="post-options">
+                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                <h3><a href="edit.php">Create New Post</a></h3>
+                <?php endif ?>
+                <h2>Search for post</h2>
+                <form method="post" action="posts.php">
+                    <label>Title of Post</label>
+                    <input type="text" name="title" id="title">
                 </form>
-                <form action="delete.php" id="deleteForm">
-                    <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                    <button type="submit" id="deleteButton">Delete</button>
-                </form>
-            </div>
-            <?php else: ?>
-                <h1>New Post</h1>
-                <div id="createpost">
-                    <form method="post">
+                </div>
+            <?php if ($edit_post): ?>
+                <h1>Post "<?= $post['title'] ?>"</h1>
+                <div id="editpost">
+                    <form method="post" id="postForm">
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
                         <ul>
                             <li>
                                 <label for="title">Title</label>
-                                <input id="title" name="title" value="">
+                                <input id="title" name="title" value="<?= $post['title'] ?>">
                             </li>
                             <li>
                                 <label for="header">Introduction</label>
-                                <textarea id="header" name="header" value=""></textarea>
+                                <textarea id="header" name="header" value=""><?= $post['header']?></textarea>
                             </li>
                             <li>
                                 <label for="body">Body</label>
-                                <textarea id="body" name="body" value=""></textarea>
+                                <textarea id="body" name="body" value=""><?= $post['body'] ?></textarea>
                             </li>
                             <li>
                                 <label for="footer">Conclusion</label>
-                                <textarea id="footer" name="footer" value=""></textarea>
+                                <textarea id="footer" name="footer" value=""><?= $post['footer']?></textarea>
                             </li>
-                            <button type="submit" id="create">Create</button>
                         </ul>
+                        <button type="submit">Update</button> 
+                    </form>
+                    <form action="delete.php" id="deleteForm">
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
+                        <button type="submit" id="deleteButton">Delete</button>
                     </form>
                 </div>
-            <?php endif ?>
-            <footer id="indexfooter">
-                <nav>
-                    <ul>
-                        <li><a href="index.php">Home Page</a></li>
-                        <li><a href="posts.php">Posts</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </footer>
-        </div>
-    <?php else: ?>
-        <p class="error">Please log in to admin level account.</p>
-        <div id="post-options">
-            <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-            <h3><a href="edit.php">Create New Post</a></h3>
-            <?php endif ?>
-            <h2>Search for post</h2>
-            <form method="post" action="posts.php">
-                <label>Title of Post</label>
-                <input type="text" name="title" id="title">
-            </form>
-        </div>
-    <?php endif ?>
+                <?php else: ?>
+                    <h1>New Post</h1>
+                    <div id="createpost">
+                        <form method="post">
+                            <ul>
+                                <li>
+                                    <label for="title">Title</label>
+                                    <input id="title" name="title" value="">
+                                </li>
+                                <li>
+                                    <label for="header">Introduction</label>
+                                    <textarea id="header" name="header" value=""></textarea>
+                                </li>
+                                <li>
+                                    <label for="body">Body</label>
+                                    <textarea id="body" name="body" value=""></textarea>
+                                </li>
+                                <li>
+                                    <label for="footer">Conclusion</label>
+                                    <textarea id="footer" name="footer" value=""></textarea>
+                                </li>
+                                <button type="submit" id="create">Create</button>
+                            </ul>
+                        </form>
+                    </div>
+                <?php endif ?>
+            </main>
+                <footer id="indexfooter">
+                    <nav>
+                        <ul>
+                            <li><a href="index.php">Home Page</a></li>
+                            <li><a href="posts.php">Posts</a></li>
+                            <li><a href="contact.php">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </footer>
+            </div>
+        <?php else: ?>
+            <p class="error">Please log in to admin level account.</p>
+            <div id="post-options">
+                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                <h3><a href="edit.php">Create New Post</a></h3>
+                <?php endif ?>
+                <h2>Search for post</h2>
+                <form method="post" action="posts.php">
+                    <label>Title of Post</label>
+                    <input type="text" name="title" id="title">
+                </form>
+            </div>
+        <?php endif ?>
 </body>
 </html>
