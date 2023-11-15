@@ -57,6 +57,16 @@ $posts = $statement->fetchAll();
                 </ul>
             </nav>
         </header>
+        <div id="post-options">
+            <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+            <h3><a href="edit.php">Create New Post</a></h3>
+            <?php endif ?>
+            <h2>Search for post</h2>
+            <form method="post" action="posts.php">
+                <label>Title of Post</label>
+                <input type="text" name="title" id="title">
+            </form>
+        </div>
         <main id="indexmain">          
             <div id="introduction">
                  <!-- 
