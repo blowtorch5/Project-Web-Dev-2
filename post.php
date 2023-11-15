@@ -65,7 +65,7 @@ $post = $statement->fetch();
         </header>
         <main>
             <div id="post-options">
-                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
                 <h3><a href="edit.php">Create New Post</a></h3>
                 <?php endif ?>
                 <h2>Search for post</h2>
