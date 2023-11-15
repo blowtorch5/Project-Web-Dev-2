@@ -37,7 +37,7 @@ session_start();
                 <button type="submit">Login</button>
             <?php endif ?>
             <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
-                <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
+                <a href="authenticate.php?redirect=contact.php&logout=true">Log out</a>
             <?php endif ?>
         </form>
         <header id="contactheader">
