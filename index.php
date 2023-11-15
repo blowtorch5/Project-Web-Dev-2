@@ -121,6 +121,8 @@ $posts = $statement->fetchAll();
                     <li><a href="contact.php">Contact Us</a></li>
                     <?php if (!isset($_SESSION['authenticated'])): ?>
                         <li><a href="#login">Sign In</a></li>
+                    <?php else: ?>
+                        <li><a href="authenticate.php?redirect=index.php&logout=true">Log out</a></li>
                     <?php endif ?>
                 </ul>
             </nav>
