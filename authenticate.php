@@ -15,25 +15,30 @@
 
   $users = $statement->fetchAll();
 
-  $logged = false;
-
   session_start();
-
-  foreach( $users as $user ){
-    if ($user["username"] == $_GET["username"]){
-      if ($user["password"] == $_GET["password"]){
-        $_SESSION['user'] = $user;
-        $_SESSION["authenticated"] = true;
-        $logged = true;
-      }
-    }
-  }
-
-  if (!$logged){
-    $_SESSION['authenticated'] = false;
-  }
 
   $site = $_GET['redirect'];
 
-  header("Location: $site");
+  if(isset($_GET["logout"]) && $_GET["logout"]){
+    $logged = true;
+    $_SESSION['user'] = '';
+    $_SESSION["authenticated"] = null;
+    header("Location: $site");
+  }else{
+    foreach( $users as $user ){
+      if ($user["username"] == $_GET["username"]){
+        if ($user["password"] == $_GET["password"]){
+          $_SESSION['user'] = $user;
+          $_SESSION["authenticated"] = true;
+          $logged = true;
+        }
+      }
+    }
+  
+    if (!$logged){
+      $_SESSION['authenticated'] = false;
+    }
+  
+    header("Location: $site");
+  }
 ?>

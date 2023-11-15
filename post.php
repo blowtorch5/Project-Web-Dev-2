@@ -47,6 +47,9 @@ $post = $statement->fetch();
             <label for="password">Password:</label>
             <input id="password" name="password">
             <button type="submit">Login</button>
+            <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
+                <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
+            <?php endif ?>
         </form>
         <header>
         <h1>Philippot Farms LTD</h1>
