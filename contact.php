@@ -28,12 +28,14 @@ session_start();
             <p class="error">Incorrect login</p>
         <?php endif ?>
         <form id="login" action="authenticate.php">
-            <input type="hidden" name="redirect" value="contact.php">
-            <label for="username">Username:</label>
-            <input id="username" name="username">
-            <label for="password">Password:</label>
-            <input id="password" name="password" type="password">
-            <button type="submit">Login</button>
+            <?php if (!isset($_SESSION['authenticated'])): ?>
+                <input type="hidden" name="redirect" value="index.php">
+                <label for="username">Username:</label>
+                <input id="username" name="username">
+                <label for="password">Password:</label>
+                <input id="password" name="password" type="password">
+                <button type="submit">Login</button>
+            <?php endif ?>
             <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
                 <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
             <?php endif ?>

@@ -41,12 +41,14 @@ $post = $statement->fetch();
             <p class="error">Incorrect login</p>
         <?php endif ?>
         <form id="login" action="authenticate.php?redirect=post.php">
-            <input type="hidden" name="redirect" value="post.php?id=<?=$post['id']?>">
-            <label for="username">Username:</label>
-            <input id="username" name="username">
-            <label for="password">Password:</label>
-            <input id="password" name="password" type="password">
-            <button type="submit">Login</button>
+            <?php if (!isset($_SESSION['authenticated'])): ?>
+                <input type="hidden" name="redirect" value="index.php">
+                <label for="username">Username:</label>
+                <input id="username" name="username">
+                <label for="password">Password:</label>
+                <input id="password" name="password" type="password">
+                <button type="submit">Login</button>
+            <?php endif ?>
             <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
                 <a href="authenticate.php?redirect=post.php?id=<?=$post['id']?>&logout=true">Log out</a>
             <?php endif ?>
