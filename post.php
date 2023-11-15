@@ -42,7 +42,7 @@ $post = $statement->fetch();
         <?php endif ?>
         <form id="login" action="authenticate.php?redirect=post.php">
             <?php if (!isset($_SESSION['authenticated'])): ?>
-                <input type="hidden" name="redirect" value="index.php">
+                <input type="hidden" name="redirect" value="post.php?id=<?=$post['id']?>">
                 <label for="username">Username:</label>
                 <input id="username" name="username">
                 <label for="password">Password:</label>

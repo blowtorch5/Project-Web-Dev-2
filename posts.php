@@ -53,7 +53,7 @@ else
         <?php endif ?>
         <form id="login" action="authenticate.php">
             <?php if (!isset($_SESSION['authenticated'])): ?>
-                <input type="hidden" name="redirect" value="index.php">
+                <input type="hidden" name="redirect" value="posts.php">
                 <label for="username">Username:</label>
                 <input id="username" name="username">
                 <label for="password">Password:</label>

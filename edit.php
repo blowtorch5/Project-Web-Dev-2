@@ -152,6 +152,12 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
 <body>
     <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
         <div>
+            <?php if (isset($_SESSION["user"]["username"])): ?>
+                <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
+            <?php endif ?>
+            <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
+                <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
+            <?php endif ?>
             <header>
                 <h1>Philippot Farms LTD</h1>
                 <nav>
