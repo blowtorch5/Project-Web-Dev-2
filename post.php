@@ -61,30 +61,32 @@ $post = $statement->fetch();
             </ul>
         </nav>
         </header>
-        <div id="post-options">
-            <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-            <h3><a href="edit.php">Create New Post</a></h3>
-            <?php endif ?>
-            <h2>Search for post</h2>
-            <form method="post" action="posts.php">
-                <label>Title of Post</label>
-                <input type="text" name="title" id="title">
-            </form>
-        </div>
-        <div id="postdiv" class="post">
-            <h2><?= $post['title'] ?></h2>
-            <p><?= date("M d, Y", strtotime($post['time_stamp'])) ?></p>
-            <?php if (isset($post['header'])): ?>
-            <p><?= $post['header'] ?></p>
-            <?php endif ?>
-            <p><?= $post['body'] ?></p>
-            <?php if (isset($post['footer'])): ?>
-            <p><?= $post['footer'] ?></p>
-            <?php endif ?>
-            <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
-            <p><a href="edit.php?id=<?=$post['id']?>">Edit Post</a></p>
-            <?php endif ?>
-        </div>
+        <main>
+            <div id="post-options">
+                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                <h3><a href="edit.php">Create New Post</a></h3>
+                <?php endif ?>
+                <h2>Search for post</h2>
+                <form method="post" action="posts.php">
+                    <label>Title of Post</label>
+                    <input type="text" name="title" id="title">
+                </form>
+            </div>
+            <div id="postdiv" class="post">
+                <h2><?= $post['title'] ?></h2>
+                <p><?= date("M d, Y", strtotime($post['time_stamp'])) ?></p>
+                <?php if (isset($post['header'])): ?>
+                <p><?= $post['header'] ?></p>
+                <?php endif ?>
+                <p><?= $post['body'] ?></p>
+                <?php if (isset($post['footer'])): ?>
+                <p><?= $post['footer'] ?></p>
+                <?php endif ?>
+                <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+                <p><a href="edit.php?id=<?=$post['id']?>">Edit Post</a></p>
+                <?php endif ?>
+            </div>
+        </main>
         <footer id="indexfooter">
             <nav>
                 <ul>
