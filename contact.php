@@ -28,7 +28,7 @@ session_start();
             <p class="error">Incorrect login</p>
         <?php endif ?>
         <form id="login" action="authenticate.php">
-            <?php if (!isset($_SESSION['authenticated'])): ?>
+            <?php if (!isset($_SESSION['authenticated']) || !$_SESSION['authenticated']): ?>
                 <input type="hidden" name="redirect" value="contact.php">
                 <label for="username">Username:</label>
                 <input id="username" name="username">
