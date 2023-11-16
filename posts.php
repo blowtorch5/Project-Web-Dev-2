@@ -76,7 +76,7 @@ else
         </header>
         <main>
             <div id="post-options">
-                <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                 <h3><a href="edit.php">Create New Post</a></h3>
                 <?php endif ?>
                 <h2>Search for post</h2>
@@ -89,9 +89,9 @@ else
             <div id="post-list">
             <?php foreach($posts as $post): ?>
                 <div class="post">
-                    <h2><a href=post.php?id=<?=$post['id'] ?>><?= $post['title'] ?></a></h2>
-                    <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-                    <a href=edit.php?id=<?=$post['id']?>>Edit Post</a>
+                    <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
+                    <?php if(isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                    <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
                     <?php endif ?>
                     <p><?=date("M d, Y ", strtotime($post['time_stamp']))?></p>
                     <?php if (isset($post['header'])): ?>
@@ -101,7 +101,7 @@ else
                     <?php if (isset($post['footer'])): ?>
                     <p><?= $post['footer'] ?></p>
                     <?php endif ?>
-                    <p><a href=post.php?id=<?=$post['id']?>>Read Full Post</a></p>
+                    <p><a href="post.php?id=<?=$post['id']?>">Read Full Post</a></p>
                 </div>
             <?php endforeach ?>
             </div>

@@ -61,7 +61,7 @@ $posts = $statement->fetchAll();
         </header>
         <main id="indexmain">
             <div id="post-options">
-                <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                 <h3><a href="edit.php">Create New Post</a></h3>
                 <?php endif ?>
                 <h2>Search for post</h2>
@@ -99,7 +99,7 @@ $posts = $statement->fetchAll();
                 <?php foreach($posts as $post): ?>
                     <div class="post">
                         <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
-                        <?php if(isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+                        <?php if(isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                         <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
                         <?php endif ?>
                         <p><?=date("M d, Y", strtotime($post['time_stamp']))?></p>

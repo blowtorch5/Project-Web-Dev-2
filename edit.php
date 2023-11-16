@@ -76,7 +76,6 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
         }
     }
 
-    $failed = false;
     $statement->execute();
     header("Location: post.php?id={$id}");
 
@@ -150,7 +149,7 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
     <title>Edit this Post!</title>
 </head>
 <body>
-    <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
         <div>
             <?php if (isset($_SESSION["user"]["username"])): ?>
                 <p>Logged in: <?=$_SESSION["user"]["username"]?></p>

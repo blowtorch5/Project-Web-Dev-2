@@ -65,7 +65,7 @@ $post = $statement->fetch();
         </header>
         <main>
             <div id="post-options">
-                <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                 <h3><a href="edit.php">Create New Post</a></h3>
                 <?php endif ?>
                 <h2>Search for post</h2>
@@ -84,7 +84,7 @@ $post = $statement->fetch();
                 <?php if (isset($post['footer'])): ?>
                 <p><?= $post['footer'] ?></p>
                 <?php endif ?>
-                <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
+                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                 <p><a href="edit.php?id=<?=$post['id']?>">Edit Post</a></p>
                 <?php endif ?>
             </div>
