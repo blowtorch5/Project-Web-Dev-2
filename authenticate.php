@@ -19,12 +19,12 @@
 
   $site = $_GET['redirect'];
 
-  if(isset($_GET["logout"]) && $_GET["logout"]){
+  if (isset($_GET["logout"]) && $_GET["logout"]){
     $logged = true;
     $_SESSION['user'] = '';
     $_SESSION["authenticated"] = null;
     header("Location: $site");
-  }else{
+  } else {
     foreach( $users as $user ){
       if ($user["username"] == $_GET["username"]){
         if ($user["pass"] == $_GET["pass"]){
