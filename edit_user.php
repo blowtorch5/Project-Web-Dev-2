@@ -41,7 +41,7 @@ if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POS
     $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
     $statement->execute();
-    header("Location: user.php?id={$id}");
+    header("Location: users.php");
 
     exit;
 }
@@ -154,7 +154,7 @@ $categories = $statement->fetchAll();
                         <button type="submit">Update</button> 
                     </form>
                     <form action="delete.php" id="deleteForm">
-                        <input type="hidden" name="id" value="<?= $user['user_id'] ?>">
+                        <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                         <button type="submit" id="deleteButton">Delete</button>
                     </form>
                 </div>
