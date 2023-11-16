@@ -27,7 +27,7 @@
   }else{
     foreach( $users as $user ){
       if ($user["username"] == $_GET["username"]){
-        if ($user["password"] == $_GET["password"]){
+        if ($user["pass"] == $_GET["pass"]){
           $_SESSION['user'] = $user;
           $_SESSION["authenticated"] = true;
           $logged = true;

@@ -46,7 +46,7 @@ $post = $statement->fetch();
                 <label for="username">Username:</label>
                 <input id="username" name="username">
                 <label for="password">Password:</label>
-                <input id="password" name="password" type="password">
+                <input id="pass" name="pass" type="password">
                 <button type="submit">Login</button>
             <?php endif ?>
             <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
