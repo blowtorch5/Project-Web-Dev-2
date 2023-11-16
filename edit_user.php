@@ -91,7 +91,7 @@ $categories = $statement->fetchAll();
                 <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
             <?php endif ?>
             <header>
-                <h1>Philippot Farms LTD</h1>
+                <h1>Edit User</h1>
                 <nav>
                     <ul id="headnavlist">
                         <li><a href="index.php">Home Page</a></li>
