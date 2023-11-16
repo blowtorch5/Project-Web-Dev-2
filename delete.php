@@ -8,15 +8,20 @@
 
 ********************/
 
-	require("authenticate.php");
+	require("connect.php");
+    session_start();
 
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    if(isset($_SESSION["user"]['user_level']) && $_SESSION["user"]['user_level'] == "admin"){
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $query = "DELETE FROM pages WHERE id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue('id', $id);        
+        $query = "DELETE FROM pages WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue('id', $id);        
 
-    $statement->execute();
+        $statement->execute();
 
-    header("Location: index.php");
+        header("Location: index.php");
+    }else{
+        header("Location: index.php");
+    }
 ?>
