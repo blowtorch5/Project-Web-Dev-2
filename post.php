@@ -60,7 +60,7 @@ $categories = $statement->fetchAll();
             <?php endif ?>
         </form>
         <header>
-        <h1>Philippot Farms LTD</h1>
+        <h1>Post "<?= $post['title'] ?>"</h1>
         <nav>
             <ul id="headnavlist">
                 <li><a href="index.php">Home Page</a></li>
