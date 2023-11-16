@@ -93,11 +93,6 @@ img{
             justify-content: space-between;
         }
 
-        #postsearch{
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-
         div > ul li{
             margin: auto;
         }
