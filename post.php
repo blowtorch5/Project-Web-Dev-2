@@ -67,7 +67,7 @@ $categories = $statement->fetchAll();
                 <li id='postsearch'><a href="posts.php">Posts</a></li>
                 <li><a href="contact.php">Contact Us</a></li>
                 <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                        <li><a href="edit_user.php">Edit Users</a></li>
+                        <li><a href="users.php">Edit Users</a></li>
                 <?php endif ?>
             </ul>
         </nav>
