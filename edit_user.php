@@ -122,7 +122,7 @@ $categories = $statement->fetchAll();
                 </form>
                 </div>
             <?php if ($edit_user): ?>
-                <h1>Post "<?= $user['username'] ?>"</h1>
+                <h1>User "<?= $user['username'] ?>"</h1>
                 <div id="editpost">
                     <form method="post" id="userForm">
                         <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
