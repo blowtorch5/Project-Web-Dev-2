@@ -13,8 +13,7 @@ session_start();
 
 $edit_user = false;
 
-if(isset($_GET['user_id']))
-{
+if(isset($_GET['user_id'])){
     $id = filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
     $query = "SELECT * FROM users WHERE user_id = :user_id";
@@ -25,8 +24,8 @@ if(isset($_GET['user_id']))
     $user = $statement->fetch();
     $edit_user = true;
 }
-if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['user_id']))
-{
+
+if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['user_id'])){
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -46,8 +45,8 @@ if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POS
 
     exit;
 }
-if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['user_level']) && !empty($_POST['pass']))
-{
+
+if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['user_level']) && !empty($_POST['pass'])){
     $username= filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -65,6 +64,12 @@ if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_
 
     exit;
 }
+
+$query = "SELECT DISTINCT category FROM pages";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$categories = $statement->fetchAll();
 ?>
 
 <!DOCTYPE html>

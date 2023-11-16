@@ -8,7 +8,14 @@
 
 ********************/
 
+require('connect.php');
 session_start();
+
+$query = "SELECT DISTINCT category FROM pages";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$categories = $statement->fetchAll();
 
 ?>
 
@@ -57,8 +64,18 @@ session_start();
             <?php endif ?>
             <h2>Search for post</h2>
             <form method="post" action="posts.php">
-                <label>Title of Post</label>
+                <label for="title">Title of Post</label>
                 <input type="text" name="title" id="title">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="">Select a Category</option>
+                    <?php foreach ($categories as $category): ?>
+                        <?php if(!$category['category'] == null): ?>
+                            <option value="<?=$category['category']?>"><?=$category['category']?></option>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                </select>
+                <button type="submit">Search</button>
             </form>
             </div>
            <div id="contactus">

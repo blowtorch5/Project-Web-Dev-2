@@ -13,8 +13,7 @@ session_start();
 
 $edit_post = false;
 
-if(isset($_GET['id']))
-{
+if(isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     $query = "SELECT * FROM pages WHERE id = :id";
@@ -25,18 +24,16 @@ if(isset($_GET['id']))
     $post = $statement->fetch();
     $edit_post = true;
 }
-if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['id']))
-{
+
+if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['id'])){
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    if (isset($_POST['header']))
-    {
-        if(isset($_POST['footer']))
-        {
+    if (isset($_POST['header'])){
+        if(isset($_POST['footer'])){
             $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer WHERE id = :id";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);
@@ -44,9 +41,7 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
             $statement->bindValue(':body', $body);
             $statement->bindValue(':footer', $footer); 
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        }
-        else
-        {
+        } else {
             $query = "UPDATE pages SET title = :title, header = :header, body = :body WHERE id = :id";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);
@@ -54,20 +49,15 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
             $statement->bindValue(':body', $body);
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
         }
-    }
-    else
-    {
-        if(isset($_POST['footer']))
-        {
+    } else {
+        if (isset($_POST['footer'])){
             $query = "UPDATE pages SET title = :title, body = :body, footer = :footer WHERE id = :id";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);    
             $statement->bindValue(':body', $body);
             $statement->bindValue(':footer', $footer); 
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        }
-        else
-        {
+        } else {
             $query = "UPDATE pages SET title = :title, body = :body WHERE id = :id";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);        
@@ -81,18 +71,16 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
 
     exit;
 }
-if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
-{
+
+if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $time_stamp = date("Y-m-d h:i:a");
 
-    if (isset($_POST['header']))
-    {
-        if(isset($_POST['footer']))
-        {
+    if (isset($_POST['header'])){
+        if(isset($_POST['footer'])){
             $query = "INSERT INTO pages (title, header, body, footer, time_stamp) VALUES (:title, :header, :body, :footer, :time_stamp)";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);
@@ -100,9 +88,7 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
             $statement->bindValue(':body', $body);
             $statement->bindValue(':footer', $footer); 
             $statement->bindValue(':time_stamp', $time_stamp);
-        }
-        else
-        {
+        } else {
             $query = "INSERT INTO pages (title, header, body, time_stamp) VALUES (:title, :header, :body, :time_stamp)";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);
@@ -110,20 +96,15 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
             $statement->bindValue(':body', $body); 
             $statement->bindValue(':time_stamp', $time_stamp);
         }
-    }
-    else
-    {
-        if(isset($_POST['footer']))
-        {
+    } else {
+        if(isset($_POST['footer'])){
             $query = "INSERT INTO pages (title, body, footer, time_stamp) VALUES (:title, :body, :footer, :time_stamp)";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);       
             $statement->bindValue(':body', $body);
             $statement->bindValue(':footer', $footer); 
             $statement->bindValue(':time_stamp', $time_stamp);
-        }
-        else
-        {
+        } else {
             $query = "INSERT INTO pages (title, body, time_stamp) VALUES (:title, :body, :time_stamp)";
             $statement = $db->prepare($query);
             $statement->bindValue(':title', $title);        
@@ -137,6 +118,13 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
 
     exit;
 }
+
+$query = "SELECT DISTINCT category FROM pages";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$categories = $statement->fetchAll();
+
 ?>
 
 <!DOCTYPE html>

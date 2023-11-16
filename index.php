@@ -19,6 +19,12 @@ $statement->execute();
 
 $posts = $statement->fetchAll();
 
+$query = "SELECT DISTINCT category FROM pages";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$categories = $statement->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
