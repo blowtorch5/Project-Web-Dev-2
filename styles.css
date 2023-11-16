@@ -124,16 +124,12 @@ img{
         text-align: center;
     }
 
-        div:not(.post){
+        div{
             margin: 10px auto;
             border: 2px black solid;
             border-radius: 10px;
             padding: 25px;
             box-sizing: border-box;
-        }
-
-        #postdiv{
-            width: 95%;
         }
 
         #contactus{
@@ -324,10 +320,6 @@ img{
         width: 90vw;
     }
 
-    body div div{
-        border: none;
-    }
-
     header{
         display: inline;
     }
@@ -376,7 +368,7 @@ img{
         padding: 0px;
     }
 
-    #contactmain, #buttons{
+    #buttons{
         width: 80vw;
         padding: 0px;
         border: 2px black solid;
@@ -386,10 +378,6 @@ img{
 
     #contactmain ul{
         display: inline-block;
-    }
-
-    #contactus{
-        border: none;
     }
 
     #form div ul{

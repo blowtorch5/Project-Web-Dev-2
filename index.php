@@ -110,7 +110,7 @@ $categories = $statement->fetchAll();
                     To read the Philippot family and Philippot Farms full story, please visit <a href="https://dairyfarmersofcanada.ca/en/dairy-in-canada/news-releases">www.dairyfarmers.ca</a> for a PDF version of the book.
                 </p>
             </div>
-            <div id="posts">
+            <div id="post-list">
                 <h1>Recently Posted Blog Entries.</h1>
                 <?php foreach($posts as $post): ?>
                     <div class="post">
