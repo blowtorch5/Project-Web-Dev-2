@@ -35,7 +35,7 @@ if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POS
 
     $query = "UPDATE users SET username = :username, email_address = :email, user_level = :user_level, pass = :pass WHERE user_id = :id";
     $statement = $db->prepare($query);
-    $statement->bindValue(':usename', $username);
+    $statement->bindValue(':username', $username);
     $statement->bindValue(':email', $email);
     $statement->bindValue(':user_level', $level);        
     $statement->bindValue(':pass', $pass);
@@ -55,7 +55,7 @@ if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_
 
     $query = "INSERT INTO users (username, email_address, user_level, pass) VALUES (:username, :email, :user_level, :pass)";
     $statement = $db->prepare($query);
-    $statement->bindValue(':usename', $username);
+    $statement->bindValue(':username', $username);
     $statement->bindValue(':email', $email);
     $statement->bindValue(':user_level', $level);           
     $statement->bindValue(':pass', $pass);
