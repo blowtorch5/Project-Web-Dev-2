@@ -12,25 +12,51 @@ require('connect.php');
 
 session_start();
 
-if (isset($_POST['title'])) {
+if (isset($_POST['title']) && !$_POST['title'] == '') {
 
-    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    if (isset($_POST['category']) && !$_POST['category'] == '') {
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $query = "SELECT * FROM pages WHERE title LIKE :title ORDER BY time_stamp DESC";
+        $query = "SELECT * FROM pages WHERE title LIKE :title AND category = :category ORDER BY time_stamp DESC";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':title', '%' . $title . '%');
+        $statement->bindValue(':category', $category);
+        $statement->execute();
+
+        $posts = $statement->fetchAll();
+    } else {
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $query = "SELECT * FROM pages WHERE title LIKE :title ORDER BY time_stamp DESC";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':title', '%' . $title . '%');
+        $statement->execute();
+
+        $posts = $statement->fetchAll();
+    }
+} elseif (isset($_POST['category']) && !$_POST['category'] == ''){
+    $category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $query = "SELECT * FROM pages WHERE category = :category ORDER BY time_stamp DESC";
     $statement = $db->prepare($query);
-    $statement->bindValue(':title', '%' . $title . '%');
+    $statement->bindValue(':category', $category);
     $statement->execute();
 
     $posts = $statement->fetchAll();
-}
-else
-{
+} else {
     $query = "SELECT * FROM pages ORDER BY time_stamp DESC";
     $statement = $db->prepare($query);
     $statement->execute();
 
     $posts = $statement->fetchAll();
 }
+
+$query = "SELECT DISTINCT category FROM pages";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$categories = $statement->fetchAll();
 
 ?>
 
@@ -81,8 +107,18 @@ else
                 <?php endif ?>
                 <h2>Search for post</h2>
                 <form method="post" action="posts.php">
-                    <label>Title of Post</label>
+                    <label for="title">Title of Post</label>
                     <input type="text" name="title" id="title">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">Select a Category</option>
+                        <?php foreach ($categories as $category): ?>
+                            <?php if(!$category['category'] == null): ?>
+                                <option value="<?=$category['category']?>"><?=$category['category']?></option>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </select>
+                    <button type="submit">Search</button>
                 </form>
             </div>
             <?php if(count($posts) != 0): ?>
