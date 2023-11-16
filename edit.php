@@ -249,16 +249,6 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body']))
             </div>
         <?php else: ?>
             <p class="error">Please log in to admin level account.</p>
-            <div id="post-options">
-                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-                <h3><a href="edit.php">Create New Post</a></h3>
-                <?php endif ?>
-                <h2>Search for post</h2>
-                <form method="post" action="posts.php">
-                    <label>Title of Post</label>
-                    <input type="text" name="title" id="title">
-                </form>
-            </div>
         <?php endif ?>
 </body>
 </html>
