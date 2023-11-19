@@ -12,7 +12,7 @@ require('connect.php');
 
 session_start();
 
-$query = "SELECT * FROM users";
+$query = "SELECT * FROM users ORDER BY username ASC";
 $statement = $db->prepare($query);
 $statement->execute();
 
@@ -54,15 +54,19 @@ $users = $statement->fetchAll();
         <header id="contactheader">
                 <h1>Users</h1>
                 <nav>
-                    <ul id="headnavlist">
-                        <li><a href="index.php">Home Page</a></li>
-                        <li id='postsearch'><a href="posts.php">Posts</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                            <li><a href="users.php">Edit Users</a></li>
-                        <?php endif ?>
-                    </ul>
-                </nav>
+                <ul id="headnavlist">
+                    <li><a href="index.php">Home Page</a></li>
+                    <li id='postsearch'><a href="posts.php">Posts</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                        <li><a href="users.php">Edit Users</a></li>
+                    <?php elseif (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                        <li><a href="edit_user.php?user_id=<?=$_SESSION['user']['user_id']?>">Edit user</a></li>
+                    <?php else: ?>
+                        <li><a href="edit_user.php">Register new user</a></li>
+                    <?php endif ?>
+                </ul>
+            </nav>
             </header>
             <main>
                 <?php if(count($users) != 0): ?>

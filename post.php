@@ -62,15 +62,19 @@ $categories = $statement->fetchAll();
         <header>
         <h1>Post "<?= $post['title'] ?>"</h1>
         <nav>
-            <ul id="headnavlist">
-                <li><a href="index.php">Home Page</a></li>
-                <li id='postsearch'><a href="posts.php">Posts</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                <ul id="headnavlist">
+                    <li><a href="index.php">Home Page</a></li>
+                    <li id='postsearch'><a href="posts.php">Posts</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                         <li><a href="users.php">Edit Users</a></li>
-                <?php endif ?>
-            </ul>
-        </nav>
+                    <?php elseif (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                        <li><a href="edit_user.php?user_id=<?=$_SESSION['user']['user_id']?>">Edit user</a></li>
+                    <?php else: ?>
+                        <li><a href="edit_user.php">Register new user</a></li>
+                    <?php endif ?>
+                </ul>
+            </nav>
         </header>
         <main>
             <div id="post-options">

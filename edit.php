@@ -154,6 +154,10 @@ $categories = $statement->fetchAll();
                         <li><a href="contact.php">Contact Us</a></li>
                         <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                             <li><a href="users.php">Edit Users</a></li>
+                        <?php elseif (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                            <li><a href="edit_user.php?user_id=<?=$_SESSION['user']['user_id']?>">Edit user</a></li>
+                        <?php else: ?>
+                            <li><a href="edit_user.php">Register new user</a></li>
                         <?php endif ?>
                     </ul>
                 </nav>

@@ -41,7 +41,12 @@ if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POS
     $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
     $statement->execute();
-    header("Location: users.php");
+
+    if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['level'] == "admin"){
+        header("Location: users.php");
+    } else {
+        header("Location: index.php");
+    }
 
     exit;
 }
@@ -60,7 +65,11 @@ if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_
     $statement->bindValue(':pass', $pass);
     $statement->execute();
 
-    header("Location: index.php");
+    if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['level'] == "admin"){
+        header("Location: users.php");
+    } else {
+        header("Location: index.php");
+    }
 
     exit;
 }
@@ -82,127 +91,136 @@ $categories = $statement->fetchAll();
     <title>Edit this Post!</title>
 </head>
 <body>
-    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-        <div>
-            <?php if (isset($_SESSION["user"]["username"])): ?>
-                <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
-            <?php endif ?>
-            <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
-                <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
-            <?php endif ?>
-            <header>
-                <h1>Edit User</h1>
-                <nav>
-                    <ul id="headnavlist">
-                        <li><a href="index.php">Home Page</a></li>
-                        <li id='postsearch'><a href="posts.php">Posts</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
-                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                            <li><a href="users.php">Edit Users</a></li>
-                        <?php endif ?>
-                    </ul>
-                </nav>
-            </header>
-            <main>
-                <div id="post-options">
-                <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+    <div>
+        <?php if (isset($_SESSION["user"]["username"])): ?>
+            <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
+        <?php endif ?>
+        <?php if (isset($_SESSION["authenticated"]) && $_SESSION['authenticated']): ?>
+            <a href="authenticate.php?redirect=index.php&logout=true">Log out</a>
+        <?php endif ?>
+        <header>
+            <h1>Edit User</h1>
+            <nav>
+                <ul id="headnavlist">
+                    <li><a href="index.php">Home Page</a></li>
+                    <li id='postsearch'><a href="posts.php">Posts</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                        <li><a href="users.php">Edit Users</a></li>
+                    <?php elseif (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+                        <li><a href="edit_user.php?user_id=<?=$_SESSION['user']['user_id']?>">Edit user</a></li>
+                    <?php else: ?>
+                        <li><a href="edit_user.php">Register new user</a></li>
+                    <?php endif ?>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="post-options">
+            <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
                 <h3><a href="edit.php">Create New Post</a></h3>
-                <?php endif ?>
-                <h2>Search for post</h2>
-                <form method="post" action="posts.php">
-                    <label for="title">Title of Post</label>
-                    <input type="text" name="title" id="title">
-                    <label for="category">Category</label>
-                    <select id="category" name="category">
-                        <option value="">Select a Category</option>
-                        <?php foreach ($categories as $category): ?>
-                            <?php if(!$category['category'] == null): ?>
-                                <option value="<?=$category['category']?>"><?=$category['category']?></option>
-                            <?php endif ?>
-                        <?php endforeach ?>
-                    </select>
-                    <button type="submit">Search</button>
+            <?php endif ?>
+            <h2>Search for post</h2>
+            <form method="post" action="posts.php">
+                <label for="title">Title of Post</label>
+                <input type="text" name="title" id="title">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="">Select a Category</option>
+                    <?php foreach ($categories as $category): ?>
+                        <?php if(!$category['category'] == null): ?>
+                            <option value="<?=$category['category']?>"><?=$category['category']?></option>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                </select>
+                <button type="submit">Search</button>
+            </form>
+            </div>
+        <?php if ($edit_user): ?>
+            <h1>User "<?= $user['username'] ?>"</h1>
+            <div id="editpost">
+                <form method="post" id="userForm">
+                    <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                    <ul>
+                        <li>
+                            <label for="username">Username</label>
+                            <input id="username" name="username" value="<?= $user['username'] ?>">
+                        </li>
+                        <li>
+                            <label for="email">Email</label>
+                            <input id="email" name="email" value=<?= $user['email_address']?>>
+                        </li>
+                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                            <li>
+                            <label for="user_level">User Level</label>
+                                <input id="user_level" name="user_level" value="<?=$user['user_level']?>">
+                            </li>
+                        <?php endif ?>
+                        <li>
+                            <label for="pass">Password</label>
+                            <input id="pass" name="pass" value=<?= $user['pass']?> type="password">
+                        </li>
+                        <li>
+                            <label for="confirm">Confirm Password</label>
+                            <input id="confirm" name="confirm" value="" type="password">
+                        </li>
+                    </ul>
+                    <button type="submit">Update</button> 
                 </form>
-                </div>
-            <?php if ($edit_user): ?>
-                <h1>User "<?= $user['username'] ?>"</h1>
-                <div id="editpost">
-                    <form method="post" id="userForm">
-                        <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
-                        <ul>
-                            <li>
-                                <label for="username">Username</label>
-                                <input id="username" name="username" value="<?= $user['username'] ?>">
-                            </li>
-                            <li>
-                                <label for="email">Email</label>
-                                <input id="email" name="email" value=<?= $user['email_address']?>>
-                            </li>
-                            <li>
-                                <label for="user_level">User Level</label>
-                                <input id="user_level" name="user_level" value=<?= $user['user_level']?>>
-                            </li>
-                            <li>
-                                <label for="pass">Password</label>
-                                <input id="pass" name="pass" value=<?= $user['pass']?> type="password">
-                            </li>
-                            <li>
-                                <label for="confirm">Confirm Password</label>
-                                <input id="confirm" name="confirm" value="" type="password">
-                            </li>
-                        </ul>
-                        <button type="submit">Update</button> 
-                    </form>
-                    <form action="delete.php" id="deleteForm">
-                        <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
-                        <button type="submit" id="deleteButton">Delete</button>
-                    </form>
-                </div>
-                <?php else: ?>
-                    <h1>New User</h1>
-                    <div id="createuser">
-                        <form method="post">
-                            <ul>
-                                <li>
-                                    <label for="username">Username</label>
-                                    <input id="username" name="username" value="">
-                                </li>
-                                <li>
-                                    <label for="email">Email</label>
-                                    <input id="email" name="email" value="">
-                                </li>
-                                <li>
-                                <label for="user_level">User Level</label>
-                                    <input id="user_level" name="user_level" value="">
-                                </li>
-                                <li>
-                                    <label for="pass">Password</label>
-                                    <input id="pass" name="pass" value="" type="password">
-                                </li>
-                                <li>
-                                    <label for="confirm">Confirm Password</label>
-                                    <input id="confirm" name="confirm" value=""  type="password">
-                                </li>
-                                <button type="submit" id="create">Create</button>
-                            </ul>
-                        </form>
-                    </div>
-                <?php endif ?>
-            </main>
-                <footer id="indexfooter">
-                    <nav>
-                        <ul>
-                            <li><a href="index.php">Home Page</a></li>
-                            <li><a href="posts.php">Posts</a></li>
-                            <li><a href="contact.php">Contact Us</a></li>
-                            <li><a href="authenticate.php?redirect=index.php&logout=true">Log out</a></li>
-                        </ul>
-                    </nav>
-                </footer>
+                <form action="delete.php" id="deleteForm">
+                    <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                    <button type="submit" id="deleteButton">Delete</button>
+                </form>
             </div>
         <?php else: ?>
-            <p class="error">Please log in to admin level account.</p>
+            <h1>New User</h1>
+            <div id="createuser">
+                <form method="post">
+                    <ul>
+                        <li>
+                            <label for="username">Username</label>
+                            <input id="username" name="username" value="">
+                        </li>
+                        <li>
+                            <label for="email">Email</label>
+                            <input id="email" name="email" value="">
+                        </li>
+                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                            <li>
+                            <label for="user_level">User Level</label>
+                                <input id="user_level" name="user_level" value="">
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <input id="user_level" name="user_level" value="user" type="hidden">
+                            </li>
+                        <?php endif ?>
+                        <li>
+                            <label for="pass">Password</label>
+                            <input id="pass" name="pass" value="" type="password">
+                        </li>
+                        <li>
+                            <label for="confirm">Confirm Password</label>
+                            <input id="confirm" name="confirm" value=""  type="password">
+                        </li>
+                        <button type="submit" id="create">Create</button>
+                    </ul>
+                </form>
             </div>
         <?php endif ?>
+    </main>
+        <footer id="indexfooter">
+            <nav>
+                <ul>
+                    <li><a href="index.php">Home Page</a></li>
+                    <li><a href="posts.php">Posts</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                    <?php if (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?> 
+                        <li><a href="authenticate.php?redirect=index.php&logout=true">Log out</a></li>
+                    <?php endif ?>
+                </ul>
+            </nav>
+        </footer>
+    </div>
 </body>
 </html>
