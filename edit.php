@@ -30,42 +30,18 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    if (isset($_POST['header'])){
-        if(isset($_POST['footer'])){
-            $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer WHERE id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);
-            $statement->bindValue(':header', $header);        
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':footer', $footer); 
-            $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        } else {
-            $query = "UPDATE pages SET title = :title, header = :header, body = :body WHERE id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);
-            $statement->bindValue(':header', $header);        
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        }
-    } else {
-        if (isset($_POST['footer'])){
-            $query = "UPDATE pages SET title = :title, body = :body, footer = :footer WHERE id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);    
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':footer', $footer); 
-            $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        } else {
-            $query = "UPDATE pages SET title = :title, body = :body WHERE id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);        
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        }
-    }
-
+    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, category = :category WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':header', $header);         
+    $statement->bindValue(':body', $body);
+    $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':category', $category);
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+       
     $statement->execute();
     header("Location: post.php?id={$id}");
 
@@ -77,42 +53,18 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $time_stamp = date("Y-m-d h:i:a");
 
-    if (isset($_POST['header'])){
-        if(isset($_POST['footer'])){
-            $query = "INSERT INTO pages (title, header, body, footer, time_stamp) VALUES (:title, :header, :body, :footer, :time_stamp)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);
-            $statement->bindValue(':header', $header);         
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':footer', $footer); 
-            $statement->bindValue(':time_stamp', $time_stamp);
-        } else {
-            $query = "INSERT INTO pages (title, header, body, time_stamp) VALUES (:title, :header, :body, :time_stamp)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);
-            $statement->bindValue(':header', $header);         
-            $statement->bindValue(':body', $body); 
-            $statement->bindValue(':time_stamp', $time_stamp);
-        }
-    } else {
-        if(isset($_POST['footer'])){
-            $query = "INSERT INTO pages (title, body, footer, time_stamp) VALUES (:title, :body, :footer, :time_stamp)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);       
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':footer', $footer); 
-            $statement->bindValue(':time_stamp', $time_stamp);
-        } else {
-            $query = "INSERT INTO pages (title, body, time_stamp) VALUES (:title, :body, :time_stamp)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':title', $title);        
-            $statement->bindValue(':body', $body);
-            $statement->bindValue(':time_stamp', $time_stamp);
-        }
-    }
-    
+    $query = "INSERT INTO pages (title, header, body, footer, category, time_stamp) VALUES (:title, :header, :body, :footer, :category, :time_stamp)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':header', $header);         
+    $statement->bindValue(':body', $body);
+    $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':category', $category); 
+    $statement->bindValue(':time_stamp', $time_stamp);
+        
     $statement->execute();
     header("Location: index.php");
 
@@ -205,6 +157,10 @@ $categories = $statement->fetchAll();
                                 <label for="footer">Conclusion</label>
                                 <textarea id="footer" name="footer" value=""><?= $post['footer']?></textarea>
                             </li>
+                            <li>
+                                <label for="category">Category</label>
+                                <input id="category" name="category" value="<?= $post['category']?>">
+                            </li>
                         </ul>
                         <button type="submit">Update</button> 
                     </form>
@@ -233,6 +189,10 @@ $categories = $statement->fetchAll();
                                 <li>
                                     <label for="footer">Conclusion</label>
                                     <textarea id="footer" name="footer" value=""></textarea>
+                                </li>
+                                <li>
+                                <label for="category">Category</label>
+                                    <input id="category" name="category" value="">
                                 </li>
                                 <button type="submit" id="create">Create</button>
                             </ul>
