@@ -11,7 +11,7 @@
 require('connect.php');
 session_start();
 
-$query = "SELECT category FROM categories";
+$query = "SELECT * FROM categories";
 $statement = $db->prepare($query);
 $statement->execute();
 

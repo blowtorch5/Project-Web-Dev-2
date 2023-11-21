@@ -21,7 +21,7 @@ $statement->execute();
 
 $post = $statement->fetch();
 
-$query = "SELECT category FROM categories";
+$query = "SELECT * FROM categories";
 $statement = $db->prepare($query);
 $statement->execute();
 
