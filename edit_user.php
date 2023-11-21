@@ -117,7 +117,7 @@ $categories = $statement->fetchAll();
         </header>
         <main>
             <div id="post-options">
-            <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
+            <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                 <h2><a href="edit.php">Create New Post</a></h2>
             <?php endif ?>
             <h2>Search for post</h2>
@@ -137,8 +137,8 @@ $categories = $statement->fetchAll();
             </form>
             </div>
         <?php if ($edit_user): ?>
-            <h1>User "<?= $user['username'] ?>"</h1>
             <div id="editpost">
+            <h1>User "<?= $user['username'] ?>"</h1>
                 <form method="post" id="userForm">
                     <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
                     <ul>
@@ -173,8 +173,8 @@ $categories = $statement->fetchAll();
                 </form>
             </div>
         <?php else: ?>
-            <h1>New User</h1>
             <div id="createuser">
+                <h1>New User</h1>
                 <form method="post">
                     <ul>
                         <li>
