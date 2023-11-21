@@ -30,10 +30,10 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT);
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, category = :category WHERE id = :id";
+    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, category_id = :category WHERE id = :id";
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':header', $header);         
@@ -53,10 +53,10 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT);
     $time_stamp = date("Y-m-d h:i:a");
 
-    $query = "INSERT INTO pages (title, header, body, footer, category, time_stamp) VALUES (:title, :header, :body, :footer, :category, :time_stamp)";
+    $query = "INSERT INTO pages (title, header, body, footer, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :category, :time_stamp)";
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':header', $header);         
@@ -133,7 +133,14 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
                             </li>
                             <li>
                                 <label for="category">Category</label>
-                                <input id="category" name="category" value="<?= $post['category']?>">
+                                <select id="category" name="category">
+                                    <option value="">All</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <?php if(!$category['category'] == null): ?>
+                                            <option value="<?=$category['category_id']?>"><?=$category['category']?></option>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                </select>
                             </li>
                         </ul>
                         <button type="submit">Update</button> 
@@ -165,8 +172,15 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
                                     <textarea id="footer" name="footer" value=""></textarea>
                                 </li>
                                 <li>
-                                <label for="category">Category</label>
-                                    <input id="category" name="category" value="">
+                                    <label for="category">Category</label>
+                                    <select id="category" name="category">
+                                        <option value="">All</option>
+                                        <?php foreach ($categories as $category): ?>
+                                            <?php if(!$category['category'] == null): ?>
+                                                <option value="<?=$category['category_id']?>"><?=$category['category']?></option>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    </select>
                                 </li>
                                 <button type="submit" id="create">Create</button>
                             </ul>
