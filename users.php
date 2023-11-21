@@ -51,7 +51,7 @@ $users = $statement->fetchAll();
                     <a href="authenticate.php?redirect=posts.php&logout=true">Log out</a>
                 <?php endif ?>
             </form>
-        <header id="contactheader">
+            <header id="contactheader">
             <h1>Users</h1>
             <nav>
                 <ul id="headnavlist">
@@ -71,6 +71,7 @@ $users = $statement->fetchAll();
             <main>
                 <?php if(count($users) != 0): ?>
                     <div id="user-list">
+                    <h1>List of users</h1>
                     <?php foreach($users as $user): ?>
                         <div class="post">
                             <h2><a href="edit_user.php?user_id=<?=$user['user_id'] ?>"><?= $user['username'] ?></a></h2>
@@ -95,8 +96,8 @@ $users = $statement->fetchAll();
                 </nav>
             </footer>
         </div>
-        <?php else: ?>
-            <p class="error">Please log in to admin level account.</p>
-        <?php endif ?>          
+    <?php else: ?>
+        <p class="error">Please log in to admin level account.</p>
+    <?php endif ?>          
 </body>
 </html>

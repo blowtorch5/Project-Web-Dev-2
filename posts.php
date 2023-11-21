@@ -130,7 +130,7 @@ $categories = $statement->fetchAll();
             </div>
             <?php if(count($posts) != 0): ?>
                 <div id="post-list">
-                    <h1>Posts</h1>
+                    <h1>List of posts</h1>
                     <?php foreach($posts as $post): ?>
                         <div class="post">
                             <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
