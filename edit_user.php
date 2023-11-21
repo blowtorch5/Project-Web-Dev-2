@@ -116,26 +116,6 @@ $categories = $statement->fetchAll();
             </nav>
         </header>
         <main>
-            <div id="post-options">
-            <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                <h2><a href="edit.php">Create New Post</a></h2>
-            <?php endif ?>
-            <h2>Search for post</h2>
-            <form method="post" action="posts.php">
-                <label for="title">Title of Post</label>
-                <input type="text" name="title" id="title">
-                <label for="category">Category</label>
-                <select id="category" name="category">
-                    <option value="">Select a Category</option>
-                    <?php foreach ($categories as $category): ?>
-                        <?php if(!$category['category'] == null): ?>
-                            <option value="<?=$category['category']?>"><?=$category['category']?></option>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </select>
-                <button type="submit">Search</button>
-            </form>
-            </div>
         <?php if ($edit_user): ?>
             <div id="editpost">
             <h1>User "<?= $user['username'] ?>"</h1>
