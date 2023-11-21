@@ -150,12 +150,6 @@ $categories = $statement->fetchAll();
                             <label for="email">Email</label>
                             <input id="email" name="email" value=<?= $user['email_address']?>>
                         </li>
-                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                            <li>
-                            <label for="user_level">User Level</label>
-                                <input id="user_level" name="user_level" value="<?=$user['user_level']?>">
-                            </li>
-                        <?php endif ?>
                         <li>
                             <label for="pass">Password</label>
                             <input id="pass" name="pass" value=<?= $user['pass']?> type="password">
@@ -164,6 +158,12 @@ $categories = $statement->fetchAll();
                             <label for="confirm">Confirm Password</label>
                             <input id="confirm" name="confirm" value="" type="password">
                         </li>
+                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                            <li>
+                            <label for="user_level">User Level</label>
+                                <input id="user_level" name="user_level" value="<?=$user['user_level']?>">
+                            </li>
+                        <?php endif ?>
                     </ul>
                     <button type="submit">Update</button> 
                 </form>
@@ -185,6 +185,14 @@ $categories = $statement->fetchAll();
                             <label for="email">Email</label>
                             <input id="email" name="email" value="">
                         </li>
+                        <li>
+                            <label for="pass">Password</label>
+                            <input id="pass" name="pass" value="" type="password">
+                        </li>
+                        <li>
+                            <label for="confirm">Confirm Password</label>
+                            <input id="confirm" name="confirm" value=""  type="password">
+                        </li>
                         <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
                             <li>
                             <label for="user_level">User Level</label>
@@ -195,14 +203,6 @@ $categories = $statement->fetchAll();
                                 <input id="user_level" name="user_level" value="user" type="hidden">
                             </li>
                         <?php endif ?>
-                        <li>
-                            <label for="pass">Password</label>
-                            <input id="pass" name="pass" value="" type="password">
-                        </li>
-                        <li>
-                            <label for="confirm">Confirm Password</label>
-                            <input id="confirm" name="confirm" value=""  type="password">
-                        </li>
                         <button type="submit" id="create">Create</button>
                     </ul>
                 </form>
