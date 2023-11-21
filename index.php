@@ -83,7 +83,7 @@ $categories = $statement->fetchAll();
                     <input type="text" name="title" id="title">
                     <label for="category">Category</label>
                     <select id="category" name="category">
-                        <option value="">Select a Category</option>
+                        <option value="">All</option>
                         <?php foreach ($categories as $category): ?>
                             <?php if(!$category['category'] == null): ?>
                                 <option value="<?=$category['category']?>"><?=$category['category']?></option>
