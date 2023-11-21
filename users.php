@@ -12,6 +12,12 @@ require('connect.php');
 
 session_start();
 
+$query = "SELECT * FROM users ORDER BY username ASC";
+$statement = $db->prepare($query);
+$statement->execute();
+
+$users = $statement->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
