@@ -26,29 +26,29 @@ if(isset($_GET['user_id'])){
 }
 
 if ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['user_id'])){
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+    if (isset($_POST['pass']) && isset($_POST['confim']) && $_POST['pass'] == $_POST['confirm']){
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
-    $query = "UPDATE users SET username = :username, email_address = :email, user_level = :user_level, pass = :pass WHERE user_id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->bindValue(':email', $email);
-    $statement->bindValue(':user_level', $level);        
-    $statement->bindValue(':pass', $pass);
-    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $query = "UPDATE users SET username = :username, email_address = :email, user_level = :user_level, pass = :pass WHERE user_id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':user_level', $level);        
+        $statement->bindValue(':pass', $pass);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
-    $statement->execute();
+        $statement->execute();
 
-    if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['level'] == "admin"){
-        header("Location: users.php");
-    } else {
-        header("Location: index.php");
+        if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['level'] == "admin"){
+            header("Location: users.php");
+        } else {
+            header("Location: index.php");
+        }
     }
-
-    exit;
 }
 
 if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['user_level']) && !empty($_POST['pass'])){
@@ -70,8 +70,6 @@ if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_
     } else {
         header("Location: index.php");
     }
-
-    exit;
 }
 
 $query = "SELECT DISTINCT category FROM pages";
