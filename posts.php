@@ -18,7 +18,7 @@ if (isset($_POST['title']) && !$_POST['title'] == '') {
         $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        $query = "SELECT * FROM pages WHERE title LIKE :title AND category = :category ORDER BY time_stamp DESC";
+        $query = "SELECT * FROM pages WHERE title LIKE :title AND category_id = :category ORDER BY time_stamp DESC";
         $statement = $db->prepare($query);
         $statement->bindValue(':title', '%' . $title . '%');
         $statement->bindValue(':category', $category);
@@ -38,7 +38,7 @@ if (isset($_POST['title']) && !$_POST['title'] == '') {
 } elseif (isset($_POST['category']) && !$_POST['category'] == ''){
     $category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $query = "SELECT * FROM pages WHERE category = :category ORDER BY time_stamp DESC";
+    $query = "SELECT * FROM pages WHERE category_id = :category ORDER BY time_stamp DESC";
     $statement = $db->prepare($query);
     $statement->bindValue(':category', $category);
     $statement->execute();
@@ -52,7 +52,7 @@ if (isset($_POST['title']) && !$_POST['title'] == '') {
     $posts = $statement->fetchAll();
 }
 
-$query = "SELECT DISTINCT category FROM pages";
+$query = "SELECT * FROM categories";
 $statement = $db->prepare($query);
 $statement->execute();
 
@@ -121,7 +121,7 @@ $categories = $statement->fetchAll();
                         <option value="">All</option>
                         <?php foreach ($categories as $category): ?>
                             <?php if(!$category['category'] == null): ?>
-                                <option value="<?=$category['category']?>"><?=$category['category']?></option>
+                                <option value="<?=$category['category_id']?>"><?=$category['category']?></option>
                             <?php endif ?>
                         <?php endforeach ?>
                     </select>

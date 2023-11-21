@@ -21,7 +21,7 @@ $statement->execute();
 
 $post = $statement->fetch();
 
-$query = "SELECT DISTINCT category FROM pages";
+$query = "SELECT category FROM categories";
 $statement = $db->prepare($query);
 $statement->execute();
 
@@ -90,7 +90,7 @@ $categories = $statement->fetchAll();
                         <option value="">All</option>
                         <?php foreach ($categories as $category): ?>
                             <?php if(!$category['category'] == null): ?>
-                                <option value="<?=$category['category']?>"><?=$category['category']?></option>
+                                <option value="<?=$category['category_id']?>"><?=$category['category']?></option>
                             <?php endif ?>
                         <?php endforeach ?>
                     </select>

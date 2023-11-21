@@ -74,11 +74,6 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
     exit;
 }
 
-$query = "SELECT DISTINCT category FROM pages";
-$statement = $db->prepare($query);
-$statement->execute();
-
-$categories = $statement->fetchAll();
 ?>
 
 <!DOCTYPE html>

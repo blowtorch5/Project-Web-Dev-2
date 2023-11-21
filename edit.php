@@ -71,12 +71,6 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     exit;
 }
 
-$query = "SELECT DISTINCT category FROM pages";
-$statement = $db->prepare($query);
-$statement->execute();
-
-$categories = $statement->fetchAll();
-
 ?>
 
 <!DOCTYPE html>
