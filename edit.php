@@ -164,9 +164,9 @@ $categories = $statement->fetchAll();
                         </ul>
                         <button type="submit">Update</button> 
                     </form>
-                    <form action="delete.php" id="deleteForm">
+                    <form action="delete.php?post=true" id="deleteForm">
                         <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                        <button type="submit" id="deleteButton">Delete</button>
+                        <button type="submit" id="deleteButton" value="post">Delete</button>
                     </form>
                 </div>
                 <?php else: ?>

@@ -12,13 +12,25 @@
     session_start();
 
     if(isset($_SESSION["user"]['user_level']) && $_SESSION["user"]['user_level'] == "admin"){
-        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        if (isset($_GET['id'])){
+            $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-        $query = "DELETE FROM pages WHERE id = :id";
-        $statement = $db->prepare($query);
-        $statement->bindValue('id', $id);        
+            $query = "DELETE FROM pages WHERE id = :id";
+            $statement = $db->prepare($query);
+            $statement->bindValue('id', $id);        
+    
+            $statement->execute();
+        }
 
-        $statement->execute();
+        if(isset($_GET['user_id'])){
+            $id = filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+
+            $query = "DELETE FROM users WHERE user_id = :id";
+            $statement = $db->prepare($query);
+            $statement->bindValue('id', $id);        
+    
+            $statement->execute();
+        }
 
         header("Location: index.php");
     }else{

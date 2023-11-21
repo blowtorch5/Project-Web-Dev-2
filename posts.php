@@ -110,7 +110,7 @@ $categories = $statement->fetchAll();
         <main>
             <div id="post-options">
                 <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                <h3><a href="edit.php">Create New Post</a></h3>
+                    <h2><a href="edit.php">Create New Post</a></h2>
                 <?php endif ?>
                 <h2>Search for post</h2>
                 <form method="post" action="posts.php">
@@ -129,25 +129,26 @@ $categories = $statement->fetchAll();
                 </form>
             </div>
             <?php if(count($posts) != 0): ?>
-            <div id="post-list">
-            <?php foreach($posts as $post): ?>
-                <div class="post">
-                    <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
-                    <?php if(isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                    <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
-                    <?php endif ?>
-                    <p><?=date("M d, Y ", strtotime($post['time_stamp']))?></p>
-                    <?php if (isset($post['header'])): ?>
-                    <p><?= $post['header'] ?></p>
-                    <?php endif ?>
-                    <p><?= substr($post['body'], 0, 200) ?></p>
-                    <?php if (isset($post['footer'])): ?>
-                    <p><?= $post['footer'] ?></p>
-                    <?php endif ?>
-                    <p><a href="post.php?id=<?=$post['id']?>">Read Full Post</a></p>
+                <div id="post-list">
+                    <h1>Posts</h1>
+                    <?php foreach($posts as $post): ?>
+                        <div class="post">
+                            <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
+                            <?php if(isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                                <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
+                            <?php endif ?>
+                                <p><?=date("M d, Y ", strtotime($post['time_stamp']))?></p>
+                            <?php if (isset($post['header'])): ?>
+                                <p><?= $post['header'] ?></p>
+                            <?php endif ?>
+                                <p><?= substr($post['body'], 0, 200) ?></p>
+                            <?php if (isset($post['footer'])): ?>
+                                <p><?= $post['footer'] ?></p>
+                            <?php endif ?>
+                                <p><a href="post.php?id=<?=$post['id']?>">Read Full Post</a></p>
+                        </div>
+                    <?php endforeach ?>
                 </div>
-            <?php endforeach ?>
-            </div>
             <?php endif ?>
         </main>
         <footer id="indexfooter">

@@ -25,7 +25,7 @@ if(isset($_GET['user_id'])){
     $edit_user = true;
 }
 
-if ($_POST && isset($_POST['username']) && isset($_POST['email']) && $edit_user && isset($_POST['pass']) && isset($_POST['confirm']) && $_POST['pass'] == $_POST['confirm']){
+if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -51,9 +51,7 @@ if ($_POST && isset($_POST['username']) && isset($_POST['email']) && $edit_user 
     }
 
     exit;
-}
-
-if ($_POST && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['user_level']) && !empty($_POST['pass'])){
+} elseif ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
     $username= filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -120,7 +118,7 @@ $categories = $statement->fetchAll();
         <main>
             <div id="post-options">
             <?php if(isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
-                <h3><a href="edit.php">Create New Post</a></h3>
+                <h2><a href="edit.php">Create New Post</a></h2>
             <?php endif ?>
             <h2>Search for post</h2>
             <form method="post" action="posts.php">
@@ -171,7 +169,7 @@ $categories = $statement->fetchAll();
                 </form>
                 <form action="delete.php" id="deleteForm">
                     <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
-                    <button type="submit" id="deleteButton">Delete</button>
+                    <button type="submit" id="deleteButton" value="user">Delete</button>
                 </form>
             </div>
         <?php else: ?>

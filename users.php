@@ -52,8 +52,8 @@ $users = $statement->fetchAll();
                 <?php endif ?>
             </form>
         <header id="contactheader">
-                <h1>Users</h1>
-                <nav>
+            <h1>Users</h1>
+            <nav>
                 <ul id="headnavlist">
                     <li><a href="index.php">Home Page</a></li>
                     <li id='postsearch'><a href="posts.php">Posts</a></li>

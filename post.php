@@ -61,7 +61,7 @@ $categories = $statement->fetchAll();
         </form>
         <header>
         <h1>Post "<?= $post['title'] ?>"</h1>
-        <nav>
+            <nav>
                 <ul id="headnavlist">
                     <li><a href="index.php">Home Page</a></li>
                     <li id='postsearch'><a href="posts.php">Posts</a></li>
@@ -79,7 +79,7 @@ $categories = $statement->fetchAll();
         <main>
             <div id="post-options">
                 <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                <h3><a href="edit.php">Create New Post</a></h3>
+                    <h2><a href="edit.php">Create New Post</a></h2>
                 <?php endif ?>
                 <h2>Search for post</h2>
                 <form method="post" action="posts.php">

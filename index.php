@@ -75,7 +75,7 @@ $categories = $statement->fetchAll();
         <main id="indexmain">
             <div id="post-options">
                 <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
-                <h3><a href="edit.php">Create New Post</a></h3>
+                    <h2><a href="edit.php">Create New Post</a></h2>
                 <?php endif ?>
                 <h2>Search for post</h2>
                 <form method="post" action="posts.php">

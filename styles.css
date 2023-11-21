@@ -160,8 +160,12 @@ img{
             margin: 10px auto;
             }
 
-            #postForm button, #deleteForm button{
+            #postForm button, #deleteForm button, #userForm button{
                 margin: auto;
+            }
+
+            #userForm ul{
+                align-items: center;
             }
 
                 #buttons{

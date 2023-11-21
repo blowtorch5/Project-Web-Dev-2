@@ -67,7 +67,7 @@ $categories = $statement->fetchAll();
         <main id="contactmain">
             <div id="post-options">
             <?php if (isset($_SESSION['user']['level']) && $_SESSION['user']['level'] == 'admin'): ?>
-            <h3><a href="edit.php">Create New Post</a></h3>
+                <h2><a href="edit.php">Create New Post</a></h2>
             <?php endif ?>
             <h2>Search for post</h2>
             <form method="post" action="posts.php">
@@ -86,7 +86,7 @@ $categories = $statement->fetchAll();
             </form>
             </div>
            <div id="contactus">
-                <h2>You can contact us by the following</h2>
+                <h1>You can contact us by the following</h1>
                 <ul> <!-- PLEASE DO NOT CONTACT ANY OF THESE, I PROMISE THESE WORK, THEY ARE MY PARENTS' ACTUAL CONTACT INFO -->
                     <li> 
                         <p>Phone at: (204) 379-2396</p>
