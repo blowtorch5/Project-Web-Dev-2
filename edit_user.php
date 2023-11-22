@@ -112,7 +112,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
         </header>
         <main>
         <?php if ($edit_user): ?>
-            <div id="editpost">
+            <div id="editUser">
             <h1>User "<?= $user['username'] ?>"</h1>
                 <form method="post" id="userForm">
                     <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
@@ -148,9 +148,9 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                 </form>
             </div>
         <?php else: ?>
-            <div id="createuser">
+            <div id="createUser">
                 <h1>New User</h1>
-                <form method="post">
+                <form method="post" id="userForm">
                     <ul>
                         <li>
                             <label for="username">Username</label>
