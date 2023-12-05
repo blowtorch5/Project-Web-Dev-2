@@ -13,17 +13,14 @@ require('connect.php');
 session_start();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+filter_var($id, FILTER_VALIDATE_INT);
 
-if(filter_var($id, FILTER_VALIDATE_INT)){
-    $query = "SELECT * FROM pages WHERE id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':id', $id);
-    $statement->execute();
-    
-    $post = $statement->fetch();
-} else {
-    header("Location: index.php");
-}
+$query = "SELECT * FROM pages WHERE id = :id";
+$statement = $db->prepare($query);
+$statement->bindValue(':id', $id);
+$statement->execute();
+
+$post = $statement->fetch();
 
 $query = "SELECT * FROM categories";
 $statement = $db->prepare($query);

@@ -31,46 +31,45 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_STRING);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_STRING);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT);
+    filter_var($category, FILTER_VALIDATE_INT);
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+    filter_var($id, FILTER_VALIDATE_INT);
 
-    if(filter_var($category, FILTER_VALIDATE_INT) && filter_var($id, FILTER_VALIDATE_INT)){
-        $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, category_id = :category WHERE id = :id";
-        $statement = $db->prepare($query);
-        $statement->bindValue(':title', $title);
-        $statement->bindValue(':header', $header);         
-        $statement->bindValue(':body', $body);
-        $statement->bindValue(':footer', $footer);
-        $statement->bindValue(':category', $category);
-        $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        
-        $statement->execute();
-        header("Location: post.php?id={$id}");
-    }
+    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, category_id = :category WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':header', $header);         
+    $statement->bindValue(':body', $body);
+    $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':category', $category);
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    
+    $statement->execute();
+    header("Location: post.php?id={$id}");
 
     exit;
 }
 
 if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
-    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+    $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_STRING);
+    $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_STRING);
+    $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_STRING);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_NUMBER_INT);
+    filter_var($category, FILTER_VALIDATE_INT);
     $time_stamp = date("Y-m-d h:i:a");
 
-    if(filter_var($category, FILTER_VALIDATE_INT)){
-        $query = "INSERT INTO pages (title, header, body, footer, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :category, :time_stamp)";
-        $statement = $db->prepare($query);
-        $statement->bindValue(':title', $title);
-        $statement->bindValue(':header', $header);         
-        $statement->bindValue(':body', $body);
-        $statement->bindValue(':footer', $footer);
-        $statement->bindValue(':category', $category); 
-        $statement->bindValue(':time_stamp', $time_stamp);
-            
-        $statement->execute();
-        header("Location: index.php");
-    }
+    $query = "INSERT INTO pages (title, header, body, footer, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :category, :time_stamp)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':header', $header);         
+    $statement->bindValue(':body', $body);
+    $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':category', $category); 
+    $statement->bindValue(':time_stamp', $time_stamp);
+        
+    $statement->execute();
+    header("Location: index.php");
 
     exit;
 }
