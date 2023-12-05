@@ -154,10 +154,12 @@ $categories = $statement->fetchAll();
                         </ul>
                         <button type="submit">Update</button> 
                     </form>
-                    <form action="delete.php?post=true" id="deleteForm">
-                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                        <button type="submit" id="deleteButton" value="post">Delete</button>
-                    </form>
+                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
+                        <form action="delete.php?post=true" id="deleteForm">
+                            <input type="hidden" name="id" value="<?= $post['id'] ?>">
+                            <button type="submit" id="deleteButton" value="post">Delete</button>
+                        </form>
+                    <?php endif ?>
                 </div>
                 <?php else: ?>
                     <h1>New Post</h1>
