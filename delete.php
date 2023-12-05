@@ -15,21 +15,25 @@
         if (isset($_GET['id'])){
             $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-            $query = "DELETE FROM pages WHERE id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue('id', $id);        
-    
-            $statement->execute();
+            if(filter_var($id, FILTER_VALIDATE_INT)){
+                $query = "DELETE FROM pages WHERE id = :id";
+                $statement = $db->prepare($query);
+                $statement->bindValue('id', $id);        
+        
+                $statement->execute();
+            }
         }
 
         if(isset($_GET['user_id'])){
             $id = filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
-            $query = "DELETE FROM users WHERE user_id = :id";
-            $statement = $db->prepare($query);
-            $statement->bindValue('id', $id);        
-    
-            $statement->execute();
+            if(filter_var($id, FILTER_VALIDATE_INT)){
+                $query = "DELETE FROM users WHERE user_id = :id";
+                $statement = $db->prepare($query);
+                $statement->bindValue('id', $id);        
+        
+                $statement->execute();
+            }
         }
 
         header("Location: index.php");

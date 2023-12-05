@@ -16,31 +16,35 @@ $edit_user = false;
 if(isset($_GET['user_id'])){
     $id = filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
-    $query = "SELECT * FROM users WHERE user_id = :user_id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':user_id', $id);
-    $statement->execute();
-
-    $user = $statement->fetch();
-    $edit_user = true;
+    if(filter_var($id, FILTER_VALIDATE_INT)){
+        $query = "SELECT * FROM users WHERE user_id = :user_id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':user_id', $id);
+        $statement->execute();
+    
+        $user = $statement->fetch();
+        $edit_user = true;
+    }
 }
 
 if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_STRING);
+    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
     $id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
-    $query = "UPDATE users SET username = :username, email_address = :email, user_level = :user_level, pass = :pass WHERE user_id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->bindValue(':email', $email);
-    $statement->bindValue(':user_level', $level);        
-    $statement->bindValue(':pass', $pass);
-    $statement->bindValue(':id', $id, PDO::PARAM_INT);
-
-    $statement->execute();
+    if(filter_var($email, FILTER_VALIDATE_EMAIL) && filter_var($id, FILTER_VALIDATE_INT)){
+        $query = "UPDATE users SET username = :username, email_address = :email, user_level = :user_level, pass = :pass WHERE user_id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':user_level', $level);        
+        $statement->bindValue(':pass', $pass);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    
+        $statement->execute();
+    }
 
     if ($_SESSION['user']['user_id'] == $user['user_id']){
         header("Location: authenticate.php?redirect=index.php&logout=true");
@@ -52,18 +56,20 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
 
     exit;
 } elseif ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
-    $username= filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $username= filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_STRING);
+    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
 
-    $query = "INSERT INTO users (username, email_address, user_level, pass) VALUES (:username, :email, :user_level, :pass)";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':username', $username);
-    $statement->bindValue(':email', $email);
-    $statement->bindValue(':user_level', $level);           
-    $statement->bindValue(':pass', $pass);
-    $statement->execute();
+    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $query = "INSERT INTO users (username, email_address, user_level, pass) VALUES (:username, :email, :user_level, :pass)";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':email', $email);
+        $statement->bindValue(':user_level', $level);           
+        $statement->bindValue(':pass', $pass);
+        $statement->execute();
+    }
 
     if (isset($_SESSION["user"]["user_level"]) && $_SESSION["user"]["user_level"] == "admin"){
         header("Location: users.php");
