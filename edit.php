@@ -92,7 +92,7 @@ $categories = $statement->fetchAll();
     <title>Edit this Post!</title>
 </head>
 <body>
-    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner'): ?>
+    <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
         <div>
             <?php if (isset($_SESSION["user"]["username"])): ?>
                 <p>Logged in: <?=$_SESSION["user"]["username"]?></p>

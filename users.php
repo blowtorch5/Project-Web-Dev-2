@@ -30,7 +30,7 @@ $users = $statement->fetchAll();
     <title>Posts</title>
 </head>
 <body>
-    <?php if(isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
         <div>
             <?php if (isset($_SESSION["user"]["username"])): ?>
                 <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
