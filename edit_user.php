@@ -105,7 +105,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                     <li><a href="index.php">Home Page</a></li>
                     <li id='postsearch'><a href="posts.php">Posts</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
                         <li><a href="users.php">Edit Users</a></li>
                     <?php elseif (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
                         <li><a href="edit_user.php?user_id=<?=$_SESSION['user']['user_id']?>">Edit user</a></li>
@@ -138,7 +138,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                             <label for="confirm">Confirm Password</label>
                             <input id="confirm" name="confirm" value="" type="password">
                         </li>
-                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
                             <li>
                             <label for="user_level">User Level</label>
                                 <input id="user_level" name="user_level" value="<?=$user['user_level']?>">
@@ -147,10 +147,12 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                     </ul>
                     <button type="submit">Update</button> 
                 </form>
-                <form action="delete.php" id="deleteForm">
-                    <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
-                    <button type="submit" id="deleteButton" value="user">Delete</button>
-                </form>
+                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
+                    <form action="delete.php" id="deleteForm">
+                        <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                        <button type="submit" id="deleteButton" value="user">Delete</button>
+                    </form>
+                <?php endif ?>
             </div>
         <?php else: ?>
             <div id="createUser">
@@ -173,7 +175,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                             <label for="confirm">Confirm Password</label>
                             <input id="confirm" name="confirm" value=""  type="password">
                         </li>
-                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                        <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
                             <li>
                             <label for="user_level">User Level</label>
                                 <input id="user_level" name="user_level" value="">

@@ -97,7 +97,7 @@ $categories = $statement->fetchAll();
                     <li><a href="index.php">Home Page</a></li>
                     <li id='postsearch'><a href="posts.php">Posts</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
-                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                    <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
                         <li><a href="users.php">Edit Users</a></li>
                     <?php elseif (isset($_SESSION['authenticated']) && $_SESSION['authenticated']): ?>
                         <li><a href="edit_user.php?user_id=<?=$_SESSION['user']['user_id']?>">Edit user</a></li>
@@ -109,7 +109,7 @@ $categories = $statement->fetchAll();
         </header>
         <main>
             <div id="post-options">
-                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner'): ?>
                     <h2><a href="edit.php">Create New Post</a></h2>
                 <?php endif ?>
                 <h2>Search for post</h2>
@@ -134,7 +134,7 @@ $categories = $statement->fetchAll();
                     <?php foreach($posts as $post): ?>
                         <div class="post">
                             <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
-                            <?php if(isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin'): ?>
+                            <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner'): ?>
                                 <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
                             <?php endif ?>
                                 <p><?=date("M d, Y ", strtotime($post['time_stamp']))?></p>
