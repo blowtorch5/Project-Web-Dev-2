@@ -66,7 +66,7 @@ $categories = $statement->fetchAll();
         </header>
         <main id="contactmain">
             <div id="post-options">
-                <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner'): ?>
+                <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
                     <h2><a href="edit.php">Create New Post</a></h2>
                 <?php endif ?>
                 <h2>Search for post</h2>
