@@ -34,10 +34,11 @@
             $statement->execute();
         }
 
-        if ($_SESSION['user']['user_id'] == $user['user_id']){
+        if ($_SESSION['user']['user_id'] == $id){
             header("Location: authenticate.php?redirect=index.php&logout=true");
+        } else {
+            header("Location: index.php");
         }
-        header("Location: index.php");
     }else{
         header("Location: index.php");
     }
