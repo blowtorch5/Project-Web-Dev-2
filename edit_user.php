@@ -27,7 +27,7 @@ if(isset($_GET['user_id'])){
     }
 }
 
-if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
+if ($edit_user && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -48,14 +48,15 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
 
     if ($_SESSION['user']['user_id'] == $user['user_id']){
         header("Location: authenticate.php?redirect=index.php&logout=true");
-    } elseif (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == "admin"){
+    } elseif (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == "owner"){
         header("Location: users.php");
     } else {
         header("Location: index.php");
     }
 
     exit;
-} elseif ($_POST && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
+
+} elseif (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
     $username= filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -77,6 +78,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
     }
 
     exit;
+
 }
 
 ?>
@@ -91,6 +93,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
     <title>Edit this Post!</title>
 </head>
 <body>
+    <p><?= $edit_user ?></p>
     <div>
         <?php if (isset($_SESSION["user"]["username"])): ?>
             <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
@@ -132,7 +135,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                         </li>
                         <li>
                             <label for="pass">Password</label>
-                            <input id="pass" name="pass" value=<?= $user['pass']?> type="password">
+                            <input id="pass" name="pass" value="" type="password">
                         </li>
                         <li>
                             <label for="confirm">Confirm Password</label>
@@ -140,8 +143,12 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                         </li>
                         <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
                             <li>
-                            <label for="user_level">User Level</label>
+                                <label for="user_level">User Level</label>
                                 <input id="user_level" name="user_level" value="<?=$user['user_level']?>">
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <input id="user_level" name="user_level" value="user" type="hidden">
                             </li>
                         <?php endif ?>
                     </ul>
@@ -177,7 +184,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
                         </li>
                         <?php if (isset($_SESSION['user']['user_level']) && $_SESSION['user']['user_level'] == 'owner'): ?>
                             <li>
-                            <label for="user_level">User Level</label>
+                                <label for="user_level">User Level</label>
                                 <input id="user_level" name="user_level" value="">
                             </li>
                         <?php else: ?>
