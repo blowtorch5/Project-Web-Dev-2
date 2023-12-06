@@ -13,7 +13,7 @@ session_start();
 
 $edit_user = false;
 
-if(isset($_GET['user_id'])){
+if(!empty($_GET['user_id'])){
     $id = filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
     if(filter_var($id, FILTER_VALIDATE_INT)){
@@ -27,7 +27,7 @@ if(isset($_GET['user_id'])){
     }
 }
 
-if ($edit_user && isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
+if ($edit_user && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['confirm']) && !empty($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -56,7 +56,7 @@ if ($edit_user && isset($_POST['username']) && isset($_POST['email']) && isset($
 
     exit;
 
-} elseif (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['confirm']) && isset($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
+} elseif (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['confirm']) && !empty($_POST['user_level']) && $_POST['pass'] == $_POST['confirm']){
     $username= filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     filter_var($email, FILTER_VALIDATE_EMAIL);

@@ -72,6 +72,7 @@ $users = $statement->fetchAll();
                 <?php if(count($users) != 0): ?>
                     <div id="user-list">
                     <h1>List of users</h1>
+                    <h2><a href="edit_user.php">Create New User</a></h2>
                     <?php foreach($users as $user): ?>
                         <div class="post">
                             <h2><a href="edit_user.php?user_id=<?=$user['user_id'] ?>"><?= $user['username'] ?></a></h2>
