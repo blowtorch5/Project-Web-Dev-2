@@ -34,6 +34,9 @@
             $statement->execute();
         }
 
+        if ($_SESSION['user']['user_id'] == $user['user_id']){
+            header("Location: authenticate.php?redirect=index.php&logout=true");
+        }
         header("Location: index.php");
     }else{
         header("Location: index.php");
