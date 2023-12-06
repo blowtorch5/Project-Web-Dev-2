@@ -32,7 +32,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     filter_var($email, FILTER_VALIDATE_EMAIL);
     $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_STRING);
-    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
+    $pass_hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
     $id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
     filter_var($id, FILTER_VALIDATE_INT);
 
@@ -41,7 +41,7 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
     $statement->bindValue(':username', $username);
     $statement->bindValue(':email', $email);
     $statement->bindValue(':user_level', $level);        
-    $statement->bindValue(':pass', $pass);
+    $statement->bindValue(':pass', $pass_hash);
     $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
     $statement->execute();
@@ -60,14 +60,14 @@ if ($edit_user && $_POST && isset($_POST['username']) && isset($_POST['email']) 
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
     filter_var($email, FILTER_VALIDATE_EMAIL);
     $level = filter_input(INPUT_POST, 'user_level', FILTER_SANITIZE_STRING);
-    $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
+    $pass_hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
     $query = "INSERT INTO users (username, email_address, user_level, pass) VALUES (:username, :email, :user_level, :pass)";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
     $statement->bindValue(':email', $email);
     $statement->bindValue(':user_level', $level);           
-    $statement->bindValue(':pass', $pass);
+    $statement->bindValue(':pass', $pass_hash);
     $statement->execute();
 
     if (isset($_SESSION["user"]["user_level"]) && $_SESSION["user"]["user_level"] == "admin"){

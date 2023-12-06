@@ -27,10 +27,14 @@
   } else {
     foreach( $users as $user ){
       if ($user["username"] == $_GET["username"]){
-        if ($user["pass"] == $_GET["pass"]){
+        if (password_verify($_GET['pass'], $user['pass'])){
           $_SESSION['user'] = $user;
           $_SESSION["authenticated"] = true;
           $logged = true;
+        } else {
+          $_SESSION['hash'] = $user['pass'];
+          $_SESSION['pass'] = $_GET['pass'];
+          $_SESSION['pass-hash'] = password_verify($_GET['pass'], $user['pass']);
         }
       }
     }
