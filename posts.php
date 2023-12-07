@@ -133,7 +133,7 @@ $categories = $statement->fetchAll();
                     <h1>List of posts</h1>
                     <?php foreach($posts as $post): ?>
                         <div class="post">
-                            <h2><a href="post.php?id=<?=$post['id'] ?>"><?= $post['title'] ?></a></h2>
+                            <h2><a href="post.php?id=<?=$post['id']?>&title=<?=$post['slug']?>"><?= $post['title'] ?></a></h2>
                             <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
                                 <a href="edit.php?id=<?=$post['id']?>">Edit Post</a>
                             <?php endif ?>
@@ -145,7 +145,7 @@ $categories = $statement->fetchAll();
                             <?php if (isset($post['footer'])): ?>
                                 <p><?= $post['footer'] ?></p>
                             <?php endif ?>
-                                <p><a href="post.php?id=<?=$post['id']?>">Read Full Post</a></p>
+                                <p><a href="post.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Read Full Post</a></p>
                         </div>
                     <?php endforeach ?>
                 </div>

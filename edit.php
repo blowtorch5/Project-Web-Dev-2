@@ -13,12 +13,14 @@ session_start();
 
 $edit_post = false;
 
-if(isset($_GET['id'])){
+if(isset($_GET['id']) && isset($_GET['title'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $slug = filter_input(INPUT_GET, 'title', FILTER_SANITIZE_STRING);
 
-    $query = "SELECT * FROM pages WHERE id = :id";
+    $query = "SELECT * FROM pages WHERE id = :id AND slug = :slug";
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $id);
+    $statement->bindValue(':slug', $slug);
     $statement->execute();
 
     $post = $statement->fetch();
@@ -27,6 +29,7 @@ if(isset($_GET['id'])){
 
 if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['id'])){
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+    $slug = str_replace(' ', '-', $title);
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_STRING);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_STRING);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_STRING);
@@ -35,23 +38,25 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     filter_var($id, FILTER_VALIDATE_INT);
 
-    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, category_id = :category WHERE id = :id";
+    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, slug = :slug, category_id = :category WHERE id = :id";
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':header', $header);         
     $statement->bindValue(':body', $body);
     $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':slug', $slug);
     $statement->bindValue(':category', $category);
     $statement->bindValue(':id', $id, PDO::PARAM_INT);
     
     $statement->execute();
-    header("Location: post.php?id={$id}");
+    header("Location: post.php?id={$id}&title={$slug}");
 
     exit;
 }
 
 if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
+    $slug = str_replace(' ', '-', $title);
     $header = filter_input(INPUT_POST, 'header', FILTER_SANITIZE_STRING);
     $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_STRING);
     $footer = filter_input(INPUT_POST, 'footer', FILTER_SANITIZE_STRING);
@@ -59,12 +64,13 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     filter_var($category, FILTER_VALIDATE_INT);
     $time_stamp = date("Y-m-d h:i:a");
 
-    $query = "INSERT INTO pages (title, header, body, footer, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :category, :time_stamp)";
+    $query = "INSERT INTO pages (title, header, body, footer, slug, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :slug, :category, :time_stamp)";
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':header', $header);         
     $statement->bindValue(':body', $body);
     $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':slug', $slug);
     $statement->bindValue(':category', $category); 
     $statement->bindValue(':time_stamp', $time_stamp);
         

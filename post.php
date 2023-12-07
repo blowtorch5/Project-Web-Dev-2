@@ -14,13 +14,20 @@ session_start();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 filter_var($id, FILTER_VALIDATE_INT);
+$slug = filter_input(INPUT_GET, 'title', FILTER_SANITIZE_STRING);
 
-$query = "SELECT * FROM pages WHERE id = :id";
+$query = "SELECT * FROM pages WHERE id = :id AND slug = :slug";
 $statement = $db->prepare($query);
 $statement->bindValue(':id', $id);
+$statement->bindValue(':slug', $slug);
 $statement->execute();
 
 $post = $statement->fetch();
+
+if($post == null){
+    header("Location: index.php");
+    exit;
+}
 
 $query = "SELECT * FROM categories";
 $statement = $db->prepare($query);
