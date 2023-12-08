@@ -143,15 +143,15 @@ $categories = $statement->fetchAll();
                             </li>
                             <li>
                                 <label for="header">Introduction</label>
-                                <textarea id="header" name="header" value=""><?= $post['header']?></textarea>
+                                <textarea id="header" name="header"><?= $post['header']?></textarea>
                             </li>
                             <li>
                                 <label for="body">Body</label>
-                                <textarea id="body" name="body" value=""><?= $post['body'] ?></textarea>
+                                <textarea id="body" name="body"><?= $post['body'] ?></textarea>
                             </li>
                             <li>
                                 <label for="footer">Conclusion</label>
-                                <textarea id="footer" name="footer" value=""><?= $post['footer']?></textarea>
+                                <textarea id="footer" name="footer"><?= $post['footer']?></textarea>
                             </li>
                             <li>
                                 <label for="category">Category</label>
@@ -184,15 +184,15 @@ $categories = $statement->fetchAll();
                                 </li>
                                 <li>
                                     <label for="header">Introduction</label>
-                                    <textarea id="header" name="header" value=""></textarea>
+                                    <textarea id="header" name="header"></textarea>
                                 </li>
                                 <li>
                                     <label for="body">Body</label>
-                                    <textarea id="body" name="body" value=""></textarea>
+                                    <textarea id="body" name="body"></textarea>
                                 </li>
                                 <li>
                                     <label for="footer">Conclusion</label>
-                                    <textarea id="footer" name="footer" value=""></textarea>
+                                    <textarea id="footer" name="footer"></textarea>
                                 </li>
                                 <li>
                                     <label for="category">Category</label>
@@ -205,8 +205,8 @@ $categories = $statement->fetchAll();
                                         <?php endforeach ?>
                                     </select>
                                 </li>
-                                <button type="submit" id="create">Create</button>
                             </ul>
+                            <button type="submit" id="create">Create</button>
                         </form>
                     </div>
                 <?php endif ?>

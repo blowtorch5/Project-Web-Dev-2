@@ -100,7 +100,7 @@ $categories = $statement->fetchAll();
                     and describes my family farm. 
                 -->
                 <h1>The Philippot Family – A Dairy Legacy in Manitoba</h1>
-                <img src="images/Philippot Family.jpg" alt="Philippot Family" width=500/> 
+                <img src="images/Philippot-Family.jpg" alt="Philippot Family" width=500> 
                 <p>
                     Showcasing the contributions of Canadian dairy farmers in the building and growth of our country, the book was created in celebration of the 150th anniversary of Canada. The book traces the emergence of dairy farming in each of Canada’s provinces through the personal stories of a family of dairy farmers who have been farming for many generations.
                 </p>

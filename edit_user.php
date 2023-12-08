@@ -192,8 +192,8 @@ if ($edit_user && !empty($_POST['username']) && !empty($_POST['email']) && !empt
                                 <input id="user_level" name="user_level" value="user" type="hidden">
                             </li>
                         <?php endif ?>
-                        <button type="submit" id="create">Create</button>
                     </ul>
+                    <button type="submit" id="create">Create</button>
                 </form>
             </div>
         <?php endif ?>
