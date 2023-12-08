@@ -13,7 +13,8 @@ session_start();
 
 $edit_post = false;
 
-if(isset($_GET['id']) && isset($_GET['title'])){
+if($_GET){
+
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     $slug = filter_input(INPUT_GET, 'title', FILTER_SANITIZE_STRING);
 
@@ -24,6 +25,12 @@ if(isset($_GET['id']) && isset($_GET['title'])){
     $statement->execute();
 
     $post = $statement->fetch();
+
+    if($post == null){
+        header("Location: index.php");
+        exit;
+    }
+
     $edit_post = true;
 }
 
