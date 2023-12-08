@@ -197,7 +197,6 @@ $categories = $statement->fetchAll();
                                 <li>
                                     <label for="category">Category</label>
                                     <select id="category" name="category">
-                                        <option value="">All</option>
                                         <?php foreach ($categories as $category): ?>
                                             <?php if(!$category['category'] == null): ?>
                                                 <option value="<?=$category['category_id']?>"><?=$category['category']?></option>
