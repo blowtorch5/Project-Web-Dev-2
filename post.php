@@ -30,6 +30,14 @@ if ($_GET){
         header("Location: index.php");
         exit;
     }
+
+    $query = "SELECT * FROM images WHERE page_id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+
+    $statement->execute();
+    
+    $image = $statement->fetch();
 }
 
 
@@ -119,6 +127,9 @@ $categories = $statement->fetchAll();
                 <?php if (isset($post['footer'])): ?>
                 <p><?= $post['footer'] ?></p>
                 <?php endif ?>
+                <?php if ($image != null): ?>
+                <img src="<?= $image['filename'] ?>" alt="<?= $image['filename'] ?>">
+                <?php endif ?>
                 <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
                 <p><a href="edit.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Edit Post</a></p>
                 <?php endif ?>
@@ -133,7 +144,7 @@ $categories = $statement->fetchAll();
                     <?php if(!isset($_SESSION['authenticated'])): ?>
                         <li><a href="#login">Sign In</a></li>
                     <?php else: ?>
-                        <li><a href="authenticate.php?redirect=post.php?id=<?=$post['id']?>&logout=true">Log out</a></li>
+                        <li><a href="authenticate.php?redirect=index.php&logout=true">Log out</a></li>
                     <?php endif ?>
                 </ul>
             </nav>
