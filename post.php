@@ -128,7 +128,7 @@ $categories = $statement->fetchAll();
                 <p><?= $post['footer'] ?></p>
                 <?php endif ?>
                 <?php if ($image != null): ?>
-                <img src="<?= $image['filename'] ?>" alt="<?= $image['filename'] ?>">
+                <img src="<?= $image['filename'] ?>" alt="<?= $image['filename'] ?>" width=500>
                 <?php endif ?>
                 <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
                 <p><a href="edit.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Edit Post</a></p>
