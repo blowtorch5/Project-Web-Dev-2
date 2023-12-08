@@ -93,7 +93,6 @@ if ($edit_user && !empty($_POST['username']) && !empty($_POST['email']) && !empt
     <title>Edit this Post!</title>
 </head>
 <body>
-    <p><?= $edit_user ?></p>
     <div>
         <?php if (isset($_SESSION["user"]["username"])): ?>
             <p>Logged in: <?=$_SESSION["user"]["username"]?></p>
