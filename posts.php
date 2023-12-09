@@ -12,6 +12,18 @@ require('connect.php');
 
 session_start();
 
+function fetch_photo($post){
+    global $db;
+    $query = "SELECT * FROM images WHERE page_id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $post['id']);
+
+    $statement->execute();
+    
+    $image = $statement->fetch();
+    return $image;
+}
+
 if (isset($_POST['title']) && !$_POST['title'] == '') {
 
     if (isset($_POST['category']) && !$_POST['category'] == '') {
@@ -144,6 +156,9 @@ $categories = $statement->fetchAll();
                                 <p><?= substr($post['body'], 0, 200) ?></p>
                             <?php if (isset($post['footer'])): ?>
                                 <p><?= $post['footer'] ?></p>
+                            <?php endif ?>
+                            <?php if ($post['has_image']): ?>
+                                <img src="<?= fetch_photo($post)['filename'] ?>" alt="<?=fetch_photo($post)['filename']?>" width=500>
                             <?php endif ?>
                                 <p><a href="post.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Read Full Post</a></p>
                         </div>

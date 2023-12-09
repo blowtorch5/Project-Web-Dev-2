@@ -25,6 +25,18 @@ $statement->execute();
 
 $categories = $statement->fetchAll();
 
+function fetch_photo($post){
+    global $db;
+    $query = "SELECT * FROM images WHERE page_id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $post['id']);
+
+    $statement->execute();
+    
+    $image = $statement->fetch();
+    return $image;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -123,15 +135,18 @@ $categories = $statement->fetchAll();
                     <div class="post">
                         <h2><a href="post.php?id=<?=$post['id']?>&title=<?=$post['slug']?>"><?= $post['title'] ?></a></h2>
                         <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
-                        <a href="edit.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Edit Post</a>
+                            <a href="edit.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Edit Post</a>
                         <?php endif ?>
-                        <p><?=date("M d, Y", strtotime($post['time_stamp']))?></p>
+                            <p><?=date("M d, Y", strtotime($post['time_stamp']))?></p>
                         <?php if (isset($post['header'])): ?>
-                        <p><?= $post['header'] ?></p>
+                            <p><?= $post['header'] ?></p>
                         <?php endif ?>
-                        <p><?= substr($post['body'], 0, 200) ?></p>
+                            <p><?= substr($post['body'], 0, 200) ?></p>
                         <?php if (isset($post['footer'])): ?>
-                        <p><?= $post['footer'] ?></p>
+                            <p><?= $post['footer'] ?></p>
+                        <?php endif ?>
+                        <?php if ($post['has_image']): ?>
+                            <img src="<?= fetch_photo($post)['filename'] ?>" alt="<?=fetch_photo($post)['filename']?>" width=500>
                         <?php endif ?>
                         <p><a href="post.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Read Full Post</a></p>
                     </div>

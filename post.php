@@ -31,13 +31,15 @@ if ($_GET){
         exit;
     }
 
-    $query = "SELECT * FROM images WHERE page_id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':id', $id);
-
-    $statement->execute();
+    if($post['has_image']){
+        $query = "SELECT * FROM images WHERE page_id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', $id);
     
-    $image = $statement->fetch();
+        $statement->execute();
+        
+        $image = $statement->fetch();
+    }
 }
 
 
@@ -121,17 +123,17 @@ $categories = $statement->fetchAll();
                 <h2><?= $post['title'] ?></h2>
                 <p><?= date("M d, Y", strtotime($post['time_stamp'])) ?></p>
                 <?php if (isset($post['header'])): ?>
-                <p><?= $post['header'] ?></p>
+                    <p><?= $post['header'] ?></p>
                 <?php endif ?>
-                <p><?= $post['body'] ?></p>
+                    <p><?= $post['body'] ?></p>
                 <?php if (isset($post['footer'])): ?>
-                <p><?= $post['footer'] ?></p>
+                    <p><?= $post['footer'] ?></p>
                 <?php endif ?>
-                <?php if ($image != null): ?>
-                <img src="<?= $image['filename'] ?>" alt="<?= $image['filename'] ?>" width=500>
+                <?php if (isset($image)): ?>
+                    <img src="<?= $image['filename'] ?>" alt="<?= $image['filename'] ?>" width=500>
                 <?php endif ?>
                 <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
-                <p><a href="edit.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Edit Post</a></p>
+                    <p><a href="edit.php?id=<?=$post['id']?>&title=<?=$post['slug']?>">Edit Post</a></p>
                 <?php endif ?>
             </div>
         </main>

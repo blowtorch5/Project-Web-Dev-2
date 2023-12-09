@@ -12,8 +12,12 @@ require('connect.php');
 session_start();
 
 $edit_post = false;
+
 global $valid_image;
 $valid_image = false;
+
+global $has_image;
+$has_image = false;
 
 if($_GET){
 
@@ -88,18 +92,6 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     filter_var($id, FILTER_VALIDATE_INT);
 
-    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, slug = :slug, category_id = :category WHERE id = :id";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':title', $title);
-    $statement->bindValue(':header', $header);         
-    $statement->bindValue(':body', $body);
-    $statement->bindValue(':footer', $footer);
-    $statement->bindValue(':slug', $slug);
-    $statement->bindValue(':category', $category);
-    $statement->bindValue(':id', $id, PDO::PARAM_INT);
-    
-    $statement->execute();
-
     if ($image_upload_detected && $valid_image){
         $path_segments = ['uploads', basename($image_filename)];
         $filename = join(DIRECTORY_SEPARATOR, $path_segments);
@@ -110,7 +102,23 @@ if ($_POST && isset($_POST['title']) && isset($_POST['body']) && isset($_POST['i
         $statement->bindValue(':page_id', $id);
         
         $statement->execute();
+
+        global $has_image;
+        $has_image = true;
     }
+
+    $query = "UPDATE pages SET title = :title, header = :header, body = :body, footer = :footer, slug = :slug, has_image = :has_image, category_id = :category WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':header', $header);         
+    $statement->bindValue(':body', $body);
+    $statement->bindValue(':footer', $footer);
+    $statement->bindValue(':slug', $slug);
+    $statement->bindValue(':has_image', $has_image);
+    $statement->bindValue(':category', $category);
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    
+    $statement->execute();
 
     header("Location: post.php?id={$id}&title={$slug}");
 
@@ -127,26 +135,40 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
     filter_var($category, FILTER_VALIDATE_INT);
     $time_stamp = date("Y-m-d h:i:a");
 
-    $query = "INSERT INTO pages (title, header, body, footer, slug, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :slug, :category, :time_stamp)";
+    if ($image_upload_detected && $valid_image){
+        global $has_image;
+        $has_image = true;
+    }
+
+    $query = "INSERT INTO pages (title, header, body, footer, slug, has_image, category_id, time_stamp) VALUES (:title, :header, :body, :footer, :slug, :has_image, :category, :time_stamp)";
     $statement = $db->prepare($query);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':header', $header);         
     $statement->bindValue(':body', $body);
     $statement->bindValue(':footer', $footer);
     $statement->bindValue(':slug', $slug);
+    $statement->bindValue(':has_image', $has_image);
     $statement->bindValue(':category', $category); 
     $statement->bindValue(':time_stamp', $time_stamp);
         
     $statement->execute();
 
     if ($image_upload_detected && $valid_image){
+        $query = 'SELECT id FROM pages WHERE title = :title AND time_stamp = :time_stamp';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':title', $title);
+        $statement->bindValue(':time_stamp', $time_stamp);
+
+        $statement->execute();
+        $post_id = $statement->fetch();
+
         $path_segments = ['uploads', basename($image_filename)];
         $filename = join(DIRECTORY_SEPARATOR, $path_segments);
 
         $query = 'INSERT INTO images (filename, page_id) VALUES (:filename, :page_id)';
         $statement = $db->prepare($query);
         $statement->bindValue(':filename', $filename);
-        $statement->bindValue(':page_id', $id);
+        $statement->bindValue(':page_id', $post_id);
         
         $statement->execute();
     }
