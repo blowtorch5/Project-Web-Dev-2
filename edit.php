@@ -153,7 +153,7 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
         
     $statement->execute();
 
-    if ($image_upload_detected && $valid_image){
+    if ($has_image){
         $query = 'SELECT id FROM pages WHERE title = :title AND time_stamp = :time_stamp';
         $statement = $db->prepare($query);
         $statement->bindValue(':title', $title);
@@ -168,7 +168,7 @@ if ($_POST && !empty($_POST['title']) && !empty($_POST['body'])){
         $query = 'INSERT INTO images (filename, page_id) VALUES (:filename, :page_id)';
         $statement = $db->prepare($query);
         $statement->bindValue(':filename', $filename);
-        $statement->bindValue(':page_id', $post_id);
+        $statement->bindValue(':page_id', $post_id['id']);
         
         $statement->execute();
     }
