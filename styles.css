@@ -97,7 +97,7 @@ img{
             margin: auto;
         }
 
-            #headnavlist li a, div > ul li a{
+            #headnavlist li a, div > ul li a, #buttonHeader{
                 display: flex;
                 width: 100%;
                 height: 50px;
@@ -109,10 +109,18 @@ img{
                 border-radius: 5px;
             }
 
-                #headnavlist li a:hover, #headnavlist li a:focus, div > ul li a:hover, div > ul li a:focus{
+                #headnavlist li a:hover, #headnavlist li a:focus, div > ul li a:hover, div > ul li a:focus, #buttonHeader:hover, #buttonHeader:focus{
                     color: white;
                     background-color: #1F9A2E;
                 }
+
+    #post-options button, #login button{
+        margin-top: 15px;
+    }
+
+    #deleteButton{
+        margin: 10px auto 0px auto;
+    }
 
     #indexmain h1{
         flex-basis: 100%;
@@ -160,7 +168,7 @@ img{
             margin: 10px auto;
             }
 
-            #postForm button, #deleteForm button, #userForm button{
+            #postForm button, #userForm button{
                 margin: auto;
             }
 
@@ -168,11 +176,9 @@ img{
                 align-items: center;
             }
 
-                #buttons{
-                    display: flex;
-                    width: 75%;
-                    margin: 10px auto;
-                    justify-content: space-evenly;
+                #buttonHeader{
+                    margin: 10px 0px 0px 0px;
+                    width: 25%;
                 }
 
                     button{

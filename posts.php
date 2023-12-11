@@ -121,9 +121,6 @@ $categories = $statement->fetchAll();
         </header>
         <main>
             <div id="post-options">
-                <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
-                    <h2><a href="edit.php">Create New Post</a></h2>
-                <?php endif ?>
                 <h2>Search for post</h2>
                 <form method="post" action="posts.php">
                     <label for="title">Title of Post</label>
@@ -138,6 +135,9 @@ $categories = $statement->fetchAll();
                         <?php endforeach ?>
                     </select>
                     <button type="submit">Search</button>
+                    <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
+                        <a href="edit.php" id="buttonHeader">Create New Post</a>
+                    <?php endif ?>
                 </form>
             </div>
             <?php if(count($posts) != 0): ?>
