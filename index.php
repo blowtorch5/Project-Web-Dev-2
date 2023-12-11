@@ -101,7 +101,7 @@ function fetch_photo($post){
                     </select>
                     <button type="submit">Search</button>
                     <?php if (isset($_SESSION['user']['user_level']) && ($_SESSION['user']['user_level'] == 'admin' || $_SESSION['user']['user_level'] == 'owner')): ?>
-                        <a href="edit.php" id="buttonHeader">Create New Post</a>
+                        <a href="edit.php" class="buttonHeader">Create New Post</a>
                     <?php endif ?>
                 </form>
             </div>          
